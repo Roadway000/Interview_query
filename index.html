@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>IT Interview Trainer</title>
+    <style>
+        :root {
+            --green: #2ecc71;
+            --red: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #8497a6; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+
+        /* Верхня панель */
+        .top-panel { display: flex; justify-content: space-between; border-bottom: 2px solid var(--light); padding-bottom: 10px; margin-bottom: 15px; font-weight: bold; }
+
+        /* Пояснення */
+        #explanation-box { display: none; padding: 15px; margin-bottom: 15px; border-radius: 8px; background: rgba(52, 152, 219, 0.1); border-left: 5px solid #3498db; }
+
+        /* Середня панель сірий фон => #8497a6 */
+        .question-section { margin-bottom: 25px; }
+        .q-header { color: var(--dark); margin-bottom: 15px; }
+        .options-list { list-style: none; padding: 0; }
+        .option-item {
+            padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 6px;
+            cursor: pointer; transition: 0.3s; background: white;
+        }
+        .option-item:hover { background: #f9f9f9; }
+        .correct { background-color: rgba(46, 204, 113, 0.4) !important; border-color: var(--green); }
+        .wrong { background-color: rgba(231, 76, 60, 0.4) !important; border-color: var(--red); }
+
+        /* Нижня панель */
+        .nav-controls { display: flex; justify-content: space-between; margin-top: 20px; }
+        button { padding: 10px 20px; border: none; border-radius: 5px; background: var(--dark); color: white; cursor: pointer; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* Фільтри */
+        .filter-section { margin-top: 30px; padding: 15px; background: #eee; border-radius: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .filter-section input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .filter-title { grid-column: span 2; font-weight: bold; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="top-panel">
+        <div>Тема: <span id="display-topic">-</span></div>
+        <div>Складність: <span id="display-diff">-</span></div>
+        <div>Рахунок: <span id="score">0</span></div>
+    </div>
+
+    <div class="nav-controls">
+        <button id="prev-btn" onclick="changeQuestion(-1)">← Попереднє</button>
+        <span id="q-number">0 / 0</span>
+        <button id="next-btn" onclick="changeQuestion(1)">Наступне →</button>
+    </div>
+
+    <div id="explanation-box">
+        <strong>Пояснення:</strong> <span id="explanation-text"></span>
+    </div>
+
+    <div class="question-section">
+        <h3 class="q-header">
+            <span id="q-code" style="color: #7f8c8d; font-size: 0.9em;"></span>
+            <span id="q-source">Джерело...</span><br>
+            <span id="q-text">Завантаження запитань...</span>
+        </h3>
+        <div id="options-container" class="options-list"></div>
+    </div>
+
+    <div class="filter-section">
+        <div class="filter-title">Фільтри пошуку:</div>
+        <input type="text" placeholder="Пошук за темою" oninput="applyFilters('topic', this.value)">
+        <input type="text" placeholder="Код запитання" oninput="applyFilters('question_code', this.value)">
+        <input type="text" placeholder="Складність" oninput="applyFilters('difficulty', this.value)">
+        <input type="text" placeholder="Текст запитання" oninput="applyFilters('question_text', this.value)">
+        <input type="text" placeholder="Варіанти відповідей" oninput="applyFilters('options', this.value)">
+        <input type="text" placeholder="Пояснення" oninput="applyFilters('explanation', this.value)">
+        <input type="text" placeholder="Джерело" oninput="applyFilters('source', this.value)">
+        <input type="text" placeholder="Теги (metadata)" oninput="applyFilters('tags', this.value)">
+    </div>
+</div>
+
+<script>
+    let allQuestions = [];
+    let filteredQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let activeFilters = {};
+
+    // Завантаження файлу
+    fetch('Interview_query.json')
+        .then(response => response.json())
+        .then(data => {
+            allQuestions = data;
+            filteredQuestions = [...allQuestions];
+            renderQuestion();
+        })
+        .catch(err => alert("Помилка завантаження JSON. Перевірте, чи файл у тій же папці."));
+
+    function renderQuestion() {
+        if (filteredQuestions.length === 0) {
+            document.getElementById('q-text').innerText = "Нічого не знайдено за вашими фільтрами";
+            return;
+        }
+
+        const q = filteredQuestions[currentIndex];
+        document.getElementById('display-topic').innerText = q.topic;
+        document.getElementById('display-diff').innerText = q.difficulty;
+        document.getElementById('q-code').innerText = `[${q.question_code}]`;
+        document.getElementById('q-text').innerText = q.question_text;
+        document.getElementById('q-source').innerText = `Джерело: ${q.metadata.source}`;
+        document.getElementById('q-number').innerText = `${currentIndex + 1} / ${filteredQuestions.length}`;
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        // document.getElementById('explanation-box').style.display = 'none';
+
+        // Перевіряємо, чи користувач вже відповідав на це питання раніше
+        const hasAnswered = q.hasOwnProperty('userAnswer');
+
+
+        q.options.forEach(opt => {
+            const div = document.createElement('div');
+            div.innerText = `${opt.option_id.toUpperCase()}) ${opt.text}`;
+
+            if (hasAnswered) {
+                // Якщо вже відповіли — блокуємо кліки та підсвічуємо результати
+                div.className = 'option-item disabled-click';
+
+                // Правильний варіант завжди зелений
+                if (opt.option_id === q.correct_answer_id) {
+                    div.classList.add('correct');
+                }
+                // Якщо користувач вибрав цей варіант і він був неправильним — робимо червоним
+                if (opt.option_id === q.userAnswer && q.userAnswer !== q.correct_answer_id) {
+                    div.classList.add('wrong');
+                }
+            } else {
+                // Питання нове — додаємо можливість кліку та ефекти наведення
+                div.className = 'option-item selectable';
+                div.onclick = () => checkAnswer(opt.option_id, q);
+            }
+
+            optionsContainer.appendChild(div);
+        });
+
+        // Відображення пояснення, якщо на питання вже було дано відповідь
+        if (hasAnswered) {
+            document.getElementById('explanation-text').innerText = q.explanation;
+            document.getElementById('explanation-box').style.display = 'block';
+        } else {
+            document.getElementById('explanation-box').style.display = 'none';
+        }
+
+        document.getElementById('prev-btn').disabled = currentIndex === 0;
+        document.getElementById('next-btn').disabled = currentIndex === filteredQuestions.length - 1;
+    }
+
+    function checkAnswer(selectedOptionId, questionObj) {
+        // Зберігаємо вибір користувача прямо в об'єкт питання
+        questionObj.userAnswer = selectedOptionId;
+
+        if (selectedOptionId === questionObj.correct_answer_id) {
+            score++;
+            document.getElementById('score').innerText = score;
+        }
+
+        // Перемальовуємо поточне питання, щоб застосувати підсвічування та заблокувати кліки
+        renderQuestion();
+    }
+
+    function changeQuestion(step) {
+        currentIndex += step;
+        renderQuestion();
+    }
+
+    function applyFilters(field, value) {
+        activeFilters[field] = value.toLowerCase();
+
+        filteredQuestions = allQuestions.filter(q => {
+            return Object.keys(activeFilters).every(key => {
+                const filterVal = activeFilters[key];
+                if (!filterVal) return true;
+
+                // Спеціальна обробка вкладених полів
+                if (key === 'source') return q.metadata.source.toLowerCase().includes(filterVal);
+                if (key === 'tags') return q.metadata.tags.some(t => t.toLowerCase().includes(filterVal));
+                if (key === 'options') return q.options.some(o => o.text.toLowerCase().includes(filterVal));
+
+                return String(q[key]).toLowerCase().includes(filterVal);
+            });
+        });
+
+        currentIndex = 0;
+        renderQuestion();
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1376 @@
+[
+  {
+    "id": "q-88214",
+    "topic": "Основи програмування",
+    "question_code": "PROG-INT-001",
+    "difficulty": "intermediate",
+    "question_text": "Який метод використовується для додавання елемента в кінець масиву в JavaScript?",
+    "options": [
+      { "option_id": "a", "text": "push()" },
+      { "option_id": "b", "text": "pop()"  },
+      { "option_id": "c", "text": "shift()" },
+      { "option_id": "d", "text": "unshift()" }
+    ],
+    "correct_answer_id": "a",
+    "explanation": "Метод push() додає один або більше елементів у кінець масиву і повертає нову довжину масиву. Метод pop() навпаки — видаляє останній елемент.",
+    "metadata": { "source": "Common JavaScript Interview", "tags": ["javascript", "arrays", "basics"] }
+  },
+  {
+    "id": "q-88215",
+    "topic": "Бази даних",
+    "question_code": "DB-SQL-042",
+    "difficulty": "easy",
+    "question_text": "Яка команда SQL використовується для отримання даних з бази?",
+    "options": [
+      { "option_id": "a", "text": "INSERT" },
+      { "option_id": "b", "text": "UPDATE" },
+      { "option_id": "c", "text": "SELECT" },
+      { "option_id": "d", "text": "GET"    }
+    ],
+    "correct_answer_id": "c",
+    "explanation": "Оператор SELECT використовується для вибору даних із бази даних. Результат зберігається в таблиці результатів, яка називається набором результатів (result-set).",
+    "metadata": { "source": "Common SQL Interview Qs", "tags": ["sql", "queries", "Fundamentals"] }
+  },
+  {
+    "id": "sql-2025-001",
+    "topic": "SQL",
+    "question_code": "SQL-ADV-01",
+    "difficulty": "Intermediate",
+    "question_text": "Яка головна перевага використання віконних функцій (Window Functions) порівняно з GROUP BY?",
+    "options": [
+      { "option_id": "a", "text": "Вони працюють швидше на невеликих таблицях." },
+      { "option_id": "b", "text": "Вони дозволяють агрегувати дані, не групуючи рядки, зберігаючи доступ до окремих записів." },
+      { "option_id": "c", "text": "Вони автоматично створюють індекси для запиту." },
+      { "option_id": "d", "text": "Вони замінюють необхідність використання оператора JOIN." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Віконні функції (наприклад, OVER, ROW_NUMBER) виконують обчислення над набором рядків, але при цьому кожен рядок результату залишається окремим, на відміну від GROUP BY, який 'схлопує' їх.",
+    "metadata": { "source": "LinkedIn SQL Trends 2025", "tags": ["SQL", "Window Functions", "Analytics"] }
+  },
+  {
+    "id": "py-fcc-002",
+    "topic": "Python 3",
+    "question_code": "PY3-CORE-05",
+    "difficulty": "Easy",
+    "question_text": "Що таке 'f-string' у Python 3.6+ і для чого він використовується?",
+    "options": [
+      { "option_id": "a", "text": "Це формат файлу для збереження об'єктів Python." },
+      { "option_id": "b", "text": "Метод швидкого копіювання списків (Fast-copy)." },
+      { "option_id": "c", "text": "Літерал форматування рядків, що дозволяє вставляти вирази всередину рядків за допомогою {}." },
+      { "option_id": "d", "text": "Функція для роботи з файловою системою." }
+    ],
+    "correct_answer_id": "c",
+    "explanation": "f-strings (Formatted string literals) — це найшвидший і найчитабельніший спосіб форматування рядків у сучасному Python.",
+    "metadata": { "source": "freeCodeCamp Curriculum", "tags": ["Python", "Strings", "Syntax"] }
+  },
+  {
+    "id": "delphi-vcl-003",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-MOD-12",
+    "difficulty": "Hard",
+    "question_text": "Яке нововведення з'явилося в Delphi (версії 10.4+) щодо управління пам'яттю об'єктів?",
+    "options": [
+      { "option_id": "a", "text": "Впровадження Garbage Collector для всіх платформ." },
+      { "option_id": "b", "text": "Повна відмова від ARC (Automatic Reference Counting) для об'єктів на всіх платформах на користь класичної моделі." },
+      { "option_id": "c", "text": "Перехід на автоматичне керування пам'яттю через Smart Pointers." },
+      { "option_id": "d", "text": "Введення обов'язкового використання інтерфейсів для кожного класу." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Починаючи з RAD Studio 10.4 Sydney, Embarcadero відмовилася від ARC для об'єктів на мобільних платформах, повернувши єдину класичну модель керування пам'яттю (create/free) для уніфікації коду.",
+    "metadata": { "source": "Embarcadero Modern Delphi Guide", "tags": ["Delphi", "Memory Management", "VCL"] }
+  },
+  {
+    "id": "delphi-vcl-004",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-VCL-09",
+    "difficulty": "Intermediate",
+    "question_text": "Який компонент у сучасних версіях Delphi (10.4+) замінив застарілий TWebBrowser на базі IE для відображення веб-контенту за допомогою Edge (Chromium)?",
+    "options": [
+      { "option_id": "a", "text": "TChromiumViewer" },
+      { "option_id": "b", "text": "TEdgeBrowser" },
+      { "option_id": "c", "text": "TModernWebControl" },
+      { "option_id": "d", "text": "TWebEngine" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "TEdgeBrowser використовує рушій WebView2 (Edge Chromium), що забезпечує підтримку сучасних стандартів HTML5/CSS3, на відміну від старого TWebBrowser.",
+    "metadata": { "source": "Delphi VCL Components 2020-2025", "tags": ["VCL", "Edge", "UI"] }
+  },
+  {
+    "id": "sql-int-005",
+    "topic": "SQL",
+    "question_code": "SQL-JOIN-01",
+    "difficulty": "Intermediate",
+    "question_text": "У чому різниця між WHERE та HAVING?",
+    "options": [
+      { "option_id": "a", "text": "Різниці немає, це синоніми." },
+      { "option_id": "b", "text": "WHERE фільтрує рядки до агрегації, HAVING — після (для груп)." },
+      { "option_id": "c", "text": "HAVING використовується тільки з індексами." },
+      { "option_id": "d", "text": "WHERE працює швидше, ніж HAVING у всіх випадках." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "WHERE відсікає зайві рядки перед тим, як вони потраплять у GROUP BY. HAVING фільтрує вже згруповані дані за агрегатними функціями (наприклад, COUNT, SUM).",
+    "metadata": { "source": "Common SQL Interview Qs", "tags": ["SQL", "Fundamentals", "Aggregation"] }
+  },
+  {
+    "id": "py-int-010",
+    "topic": "Python 3",
+    "question_code": "PY3-MEM-02",
+    "difficulty": "Hard",
+    "question_text": "Що таке Global Interpreter Lock (GIL) в CPython?",
+    "options": [
+      { "option_id": "a", "text": "Механізм, що прискорює обчислення в багатопотокових програмах." },
+      { "option_id": "b", "text": "М'ютекс, який дозволяє лише одному потоку керувати інтерпретатором Python одночасно." },
+      { "option_id": "c", "text": "Функція безпеки, що блокує доступ до файлової системи." },
+      { "option_id": "d", "text": "Інструмент для автоматичного імпорту бібліотек." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "GIL гарантує безпеку потоків у CPython, але стає перешкодою для CPU-bound завдань, оскільки не дозволяє виконувати Python-код паралельно на кількох ядрах в одному процесі.",
+    "metadata": { "source": "freeCodeCamp Advanced", "tags": ["Python", "Concurrency", "GIL"] }
+  },
+  {
+    "id": "del-int-020",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-GEN-01",
+    "difficulty": "Intermediate",
+    "question_text": "Який синтаксис використовується для створення екземпляра узагальненого списку (Generics) у Delphi 10.x?",
+    "options": [
+      { "option_id": "a", "text": "List := TList.Create<Integer>;" },
+      { "option_id": "b", "text": "List := TList<Integer>.Create;" },
+      { "option_id": "c", "text": "List := new GenericList(Integer);" },
+      { "option_id": "d", "text": "List := TList.New(typeof(Integer));" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "У Delphi Generics тип вказується в кутових дужках перед викликом методу конструктора класу, наприклад TList<T>.Create.",
+    "metadata": { "source": "Modern Delphi Docs", "tags": ["Delphi", "Generics", "Object Pascal"] }
+  },
+  {
+    "id": "sql-int-006",
+    "topic": "SQL",
+    "question_code": "SQL-IDX-02",
+    "difficulty": "Intermediate",
+    "question_text": "Що таке 'Clustered Index' (Кластеризований індекс)?",
+    "options": [
+      { "option_id": "a", "text": "Індекс, який створюється окремо від таблиці." },
+      { "option_id": "b", "text": "Індекс, який фізично визначає порядок зберігання даних у таблиці." },
+      { "option_id": "c", "text": "Індекс, що використовується лише для текстових полів." },
+      { "option_id": "d", "text": "Спеціальний індекс для пришвидшення операції JOIN." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Кластеризований індекс сортує та зберігає самі рядки даних у таблиці. Тому таблиця може мати лише один кластеризований індекс (зазвичай це Primary Key).",
+    "metadata": { "source": "LinkedIn Top 100", "tags": ["SQL", "Indexes", "Database Design"] }
+  },
+  {
+    "id": "py-int-011",
+    "topic": "Python 3",
+    "question_code": "PY3-OOP-03",
+    "difficulty": "Intermediate",
+    "question_text": "Яка різниця між методами __str__ та __repr__?",
+    "options": [
+      { "option_id": "a", "text": "Різниці немає." },
+      { "option_id": "b", "text": "__str__ для розробників, __repr__ для користувачів." },
+      { "option_id": "c", "text": "__str__ для 'красивого' виводу користувачу, __repr__ для однозначного відображення об'єкта (debug)." },
+      { "option_id": "d", "text": "__repr__ використовується лише при помилках." }
+    ],
+    "correct_answer_id": "c",
+    "explanation": "__str__ викликається функцією print() та str(), тоді як __repr__ намагається видати рядок, за допомогою якого можна було б відтворити об'єкт.",
+    "metadata": { "source": "Python Core Interview", "tags": ["Python", "OOP", "Dunder Methods"] }
+  },
+  {
+    "id": "sql-int-007",
+    "topic": "SQL",
+    "question_code": "SQL-CTE-01",
+    "difficulty": "Intermediate",
+    "question_text": "Для чого використовуються рекурсивні СТЕ (Common Table Expressions)?",
+    "options": [
+      { "option_id": "a", "text": "Для автоматичного видалення дублікатів." },
+      { "option_id": "b", "text": "Для роботи з ієрархічними структурами даних (наприклад, дерево категорій або оргструктура)." },
+      { "option_id": "c", "text": "Для пришвидшення запитів типу SELECT DISTINCT." },
+      { "option_id": "d", "text": "Для створення тимчасових індексів." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Рекурсивні СТЕ (WITH RECURSIVE) дозволяють запиту звертатися до самого себе, що ідеально підходить для обходу дерев, графів та ієрархій.",
+    "metadata": { "source": "SQL Advanced Interview", "tags": ["SQL", "CTE", "Recursion"] }
+  },
+  {
+    "id": "sql-int-008",
+    "topic": "SQL",
+    "question_code": "SQL-TRAN-03",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Phantom Read' (Фантомне читання) в контексті рівнів ізоляції транзакцій?",
+    "options": [
+      { "option_id": "a", "text": "Коли транзакція читає дані, які ще не були зафіксовані (dirty read)." },
+      { "option_id": "b", "text": "Коли при повторному читанні того самого рядка дані в ньому змінені." },
+      { "option_id": "c", "text": "Коли при повторному виконанні запиту з тією ж умовою з'являються нові рядки, додані іншою транзакцією." },
+      { "option_id": "d", "text": "Коли транзакція не може прочитати власні зміни." }
+    ],
+    "correct_answer_id": "c",
+    "explanation": "Фантомне читання виникає, коли інша транзакція додає нові записи, що відповідають критеріям пошуку поточної транзакції, поки та ще не завершилася.",
+    "metadata": { "source": "DB Engine Internals", "tags": ["SQL", "Transactions", "Isolation Levels"] }
+  },
+  {
+    "id": "sql-int-009",
+    "topic": "SQL",
+    "question_code": "SQL-OPT-04",
+    "difficulty": "Hard",
+    "question_text": "Яка різниця між UNION та UNION ALL?",
+    "options": [
+      { "option_id": "a", "text": "UNION ALL працює повільніше, бо перевіряє типи даних." },
+      { "option_id": "b", "text": "UNION видаляє дублікати, UNION ALL — ні, тому останній швидший." },
+      { "option_id": "c", "text": "UNION об'єднує стовпці, UNION ALL — рядки." },
+      { "option_id": "d", "text": "UNION ALL автоматично сортує результат." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "UNION виконує додаткову операцію DISTINCT для видалення дублікатів, що потребує ресурсів. UNION ALL просто склеює результати, що набагато продуктивніше.",
+    "metadata": { "source": "SQL Performance", "tags": ["SQL", "Optimization", "Set Operations"] }
+  },
+  {
+    "id": "py-int-012",
+    "topic": "Python 3",
+    "question_code": "PY3-GEN-04",
+    "difficulty": "Intermediate",
+    "question_text": "Що робить ключове слово 'yield' у Python?",
+    "options": [
+      { "option_id": "a", "text": "Зупиняє виконання програми." },
+      { "option_id": "b", "text": "Повертає значення з функції та завершує її роботу." },
+      { "option_id": "c", "text": "Перетворює функцію на генератор, дозволяючи повертати значення по одному, зберігаючи стан." },
+      { "option_id": "d", "text": "Використовується для імпорту модулів під іншим ім'ям." }
+    ],
+    "correct_answer_id": "c",
+    "explanation": "Функція з yield повертає ітератор, який не обчислює всі значення одразу, а генерує їх 'ліниво' (lazy evaluation), заощаджуючи пам'ять.",
+    "metadata": { "source": "freeCodeCamp Python", "tags": ["Python", "Generators", "Iterables"] }
+  },
+  {
+    "id": "py-int-013",
+    "topic": "Python 3",
+    "question_code": "PY3-ARG-05",
+    "difficulty": "Intermediate",
+    "question_text": "Чому не рекомендується використовувати змінні типи даних (наприклад, список []) як значення аргументів за замовчуванням?",
+    "options": [
+      { "option_id": "a", "text": "Це призведе до помилки синтаксису." },
+      { "option_id": "b", "text": "Значення за замовчуванням створюється один раз під час визначення функції, а не при кожному виклику." },
+      { "option_id": "c", "text": "Це робить функцію занадто повільною." },
+      { "option_id": "d", "text": "Python автоматично перетворює такі списки на кортежі." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Оскільки список створюється один раз, всі наступні виклики функції без аргумента будуть працювати з тим самим об'єктом, що може призвести до несподіваного накопичення даних.",
+    "metadata": { "source": "Python Pitfalls", "tags": ["Python", "Functions", "Mutability"] }
+  },
+  {
+    "id": "py-int-014",
+    "topic": "Python 3",
+    "question_code": "PY3-METH-06",
+    "difficulty": "Hard",
+    "question_text": "У чому різниця між @staticmethod та @classmethod?",
+    "options": [
+      { "option_id": "a", "text": "Різниці немає, це застарілі декоратори." },
+      { "option_id": "b", "text": "@classmethod отримує посилання на клас як перший аргумент (cls), а @staticmethod — ні." },
+      { "option_id": "c", "text": "@staticmethod можна викликати лише від імені екземпляра." },
+      { "option_id": "d", "text": "@classmethod не може змінювати стан класу." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Classmethod зазвичай використовується для фабричних методів, оскільки він має доступ до ієрархії класів через аргумент cls.",
+    "metadata": { "source": "Advanced Python OOP", "tags": ["Python", "OOP", "Decorators"] }
+  },
+  {
+    "id": "del-int-021",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-INT-02",
+    "difficulty": "Intermediate",
+    "question_text": "Як правильно реалізувати підрахунок посилань для об'єктів у Delphi за допомогою інтерфейсів?",
+    "options": [
+      { "option_id": "a", "text": "Використовувати TObject як базовий клас." },
+      { "option_id": "b", "text": "Успадкувати клас від TInterfacedObject." },
+      { "option_id": "c", "text": "Викликати Dispose() вручну." },
+      { "option_id": "d", "text": "Використовувати деструктор 'inherited destroy'." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "TInterfacedObject вже реалізує методи _AddRef та _Release, що дозволяє об'єкту автоматично знищуватися, коли кількість посилань стає рівною нулю.",
+    "metadata": { "source": "Delphi Best Practices", "tags": ["Delphi", "Interfaces", "Memory"] }
+  },
+  {
+    "id": "del-int-022",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-VCL-03",
+    "difficulty": "Intermediate",
+    "question_text": "Яка властивість компонента VCL відповідає за те, як він поводиться при зміні розмірів батьківського вікна (наприклад, прилипає до краю)?",
+    "options": [
+      { "option_id": "a", "text": "Margins" },
+      { "option_id": "b", "text": "Align" },
+      { "option_id": "c", "text": "Anchors" },
+      { "option_id": "d", "text": "Constraints" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Властивість Align (alTop, alBottom, alClient тощо) визначає автоматичне розташування та розтягування компонента відносно контейнера.",
+    "metadata": { "source": "VCL UI Design", "tags": ["Delphi", "VCL", "Layout"] }
+  },
+  {
+    "id": "del-int-023",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-RTL-04",
+    "difficulty": "Hard",
+    "question_text": "Що таке Anonymous Methods (Анонімні методи) в Delphi і де вони найчастіше застосовуються?",
+    "options": [
+      { "option_id": "a", "text": "Це методи без назви, які використовуються лише в DLL." },
+      { "option_id": "b", "text": "Це процедури або функції, які можна передавати як змінні, часто використовуються в паралельному програмуванні (TTask)." },
+      { "option_id": "c", "text": "Це методи, що приховуються при компіляції для захисту коду." },
+      { "option_id": "d", "text": "Спеціальні функції для роботи з JSON." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Анонімні методи дозволяють створювати блоки коду 'на льоту', вони замикають (capture) контекст змінних і є основою сучасних бібліотек на кшталт Parallel Programming Library (PPL).",
+    "metadata": { "source": "Modern Pascal", "tags": ["Delphi", "PPL", "Closures"] }
+  },
+  {
+    "id": "sql-int-010",
+    "topic": "SQL",
+    "question_code": "SQL-OPT-05",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'SARGable' запит у SQL?",
+    "options": [
+      { "option_id": "a", "text": "Запит, який можна виконати паралельно на кількох серверах." },
+      { "option_id": "b", "text": "Запит, структура якого дозволяє ефективно використовувати індекси для пошуку (Search ARGumentable)." },
+      { "option_id": "c", "text": "Запит, який автоматично архівує старі дані." },
+      { "option_id": "d", "text": "Спеціальний формат запиту для NoSQL баз даних." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "SARGable запити уникають використання функцій на стовпцях в WHERE (наприклад, WHERE YEAR(date) = 2024), що дозволяє рушію бази даних використовувати індекси замість повного сканування таблиці.",
+    "metadata": { "source": "SQL Performance", "tags": ["Optimization", "Indexing"] }
+  },
+  {
+    "id": "sql-int-011",
+    "topic": "SQL",
+    "question_code": "SQL-DML-06",
+    "difficulty": "Intermediate",
+    "question_text": "Яка основна відмінність між операторами TRUNCATE та DELETE?",
+    "options": [
+      { "option_id": "a", "text": "DELETE видаляє всю таблицю, TRUNCATE — тільки рядки." },
+      { "option_id": "b", "text": "DELETE — це DML операція (логірується кожен рядок), TRUNCATE — DDL (звільняє сторінки пам'яті, швидша)." },
+      { "option_id": "c", "text": "TRUNCATE дозволяє використовувати умову WHERE." },
+      { "option_id": "d", "text": "Між ними немає технічної різниці." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "TRUNCATE скидає лічильник Identity і працює майже миттєво, оскільки не записує видалення кожного рядка в журнал транзакцій так детально, як DELETE.",
+    "metadata": { "source": "Database Internals", "tags": ["SQL", "DML", "DDL"] }
+  },
+  {
+    "id": "py-int-015",
+    "topic": "Python 3",
+    "question_code": "PY3-ADV-07",
+    "difficulty": "Hard",
+    "question_text": "Як працює декоратор у Python?",
+    "options": [
+      { "option_id": "a", "text": "Це спеціальний коментар, який змінює поведінку компілятора." },
+      { "option_id": "b", "text": "Це функція, яка приймає іншу функцію як аргумент і повертає нову функцію з розширеним функціоналом." },
+      { "option_id": "c", "text": "Це метод для захисту коду від копіювання." },
+      { "option_id": "d", "text": "Це вбудована бібліотека для графічного інтерфейсу." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Декоратори використовують концепцію функцій вищого порядку та замикань, дозволяючи 'обгортати' код іншою логікою (наприклад, логування або перевірка прав доступу).",
+    "metadata": { "source": "Python Advanced Concepts", "tags": ["Python", "Decorators", "Functional Programming"] }
+  },
+  {
+    "id": "py-int-016",
+    "topic": "Python 3",
+    "question_code": "PY3-MEM-08",
+    "difficulty": "Intermediate",
+    "question_text": "Яким чином Python керує пам'яттю для невеликих об'єктів?",
+    "options": [
+      { "option_id": "a", "text": "Завжди виділяє пам'ять напряму через ОС." },
+      { "option_id": "b", "text": "Використовує механізм під назвою 'PyMalloc' (арена, пули та блоки)." },
+      { "option_id": "c", "text": "Пам'ять у Python ніколи не звільняється до завершення програми." },
+      { "option_id": "d", "text": "Всі об'єкти зберігаються в стеку." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Python має власний менеджер пам'яті для об'єктів менше 512 байт, щоб зменшити кількість системних викликів malloc та мінімізувати фрагментацію.",
+    "metadata": { "source": "CPython Internals", "tags": ["Python", "Memory Management"] }
+  },
+  {
+    "id": "del-int-024",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-THR-05",
+    "difficulty": "Intermediate",
+    "question_text": "Чому не можна звертатися до візуальних компонентів (VCL) безпосередньо з фонового потоку (TThread)?",
+    "options": [
+      { "option_id": "a", "text": "VCL компоненти автоматично видаляються при доступі з іншого потоку." },
+      { "option_id": "b", "text": "Бібліотека VCL не є ниткобезпечною (thread-safe), що може призвести до зависання або Access Violation." },
+      { "option_id": "c", "text": "Це призведе до занадто високого навантаження на процесор." },
+      { "option_id": "d", "text": "Windows забороняє будь-які потоки, крім головного." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Для безпечної взаємодії з UI з потоку необхідно використовувати методи Synchronize або Queue, які передають виконання коду в основний потік повідомлень.",
+    "metadata": { "source": "Delphi Multithreading", "tags": ["Delphi", "Multithreading", "VCL"] }
+  },
+  {
+    "id": "del-int-025",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-RTTI-06",
+    "difficulty": "Hard",
+    "question_text": "Що дозволяє робити сучасна бібліотека System.RTTI в Delphi?",
+    "options": [
+      { "option_id": "a", "text": "Пришвидшувати математичні обчислення." },
+      { "option_id": "b", "text": "Отримувати детальну інформацію про класи, методи та властивості під час виконання (Run-Time Type Information) та маніпулювати ними." },
+      { "option_id": "c", "text": "Створювати підключення до баз даних без SQL." },
+      { "option_id": "d", "text": "Це заміна для стандартного дебагера." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Сучасний RTTI (введений у Delphi 2010) дозволяє здійснювати інтроспекцію коду, викликати методи за іменем та працювати з атрибутами, що критично для серіалізації (наприклад, JSON).",
+    "metadata": { "source": "Modern Delphi Features", "tags": ["Delphi", "RTTI", "Metaprogramming"] }
+  },
+  {
+    "id": "sql-int-012",
+    "topic": "SQL",
+    "question_code": "SQL-ANAL-07",
+    "difficulty": "Intermediate",
+    "question_text": "Яка функція SQL використовується для знаходження значення попереднього рядка в межах результуючого набору?",
+    "options": [
+      { "option_id": "a", "text": "PREVIOUS()" },
+      { "option_id": "b", "text": "LAG()" },
+      { "option_id": "c", "text": "LEAD()" },
+      { "option_id": "d", "text": "LAST_VALUE()" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Функція LAG() надає доступ до даних із попереднього рядка без використання самоз'єднання (self-join). LEAD() робить те саме для наступного рядка.",
+    "metadata": { "source": "SQL Window Functions", "tags": ["SQL", "Analytics", "Window Functions"] }
+  },
+  {
+    "id": "sql-int-013",
+    "topic": "SQL",
+    "question_code": "SQL-PERF-08",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Index Scan' і чим він відрізняється від 'Index Seek'?",
+    "options": [
+      { "option_id": "a", "text": "Scan — це пошук конкретного значення, Seek — перегляд всього індексу." },
+      { "option_id": "b", "text": "Scan переглядає всі сторінки індексу, Seek використовує бінарне дерево для швидкого переходу до потрібних даних." },
+      { "option_id": "c", "text": "Seek працює тільки з кластеризованими індексами." },
+      { "option_id": "d", "text": "Scan використовується лише в NoSQL базах." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Index Seek набагато ефективніший, оскільки він «знає» де дані. Index Scan означає, що рушій перебрав весь індекс, що майже так само повільно, як і Table Scan.",
+    "metadata": { "source": "Query Optimization", "tags": ["SQL", "Performance", "Indexing"] }
+  },
+  {
+    "id": "py-int-017",
+    "topic": "Python 3",
+    "question_code": "PY3-ASY-09",
+    "difficulty": "Hard",
+    "question_text": "У чому головна відмінність між threading та asyncio в Python?",
+    "options": [
+      { "option_id": "a", "text": "Threading швидше для математичних обчислень." },
+      { "option_id": "b", "text": "Threading використовує витісняючу багатозадачність (ОС перемикає потоки), asyncio — кооперативну (код сам віддає контроль)." },
+      { "option_id": "c", "text": "Asyncio не може працювати з мережевими запитами." },
+      { "option_id": "d", "text": "Threading повністю позбавлений проблеми GIL." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "В asyncio перемикання відбувається лише в точках 'await', що дозволяє ефективно обробляти тисячі з'єднань в одному потоці.",
+    "metadata": { "source": "Modern Python Concurrency", "tags": ["Python", "Asyncio", "Threading"] }
+  },
+  {
+    "id": "py-int-018",
+    "topic": "Python 3",
+    "question_code": "PY3-CONT-10",
+    "difficulty": "Intermediate",
+    "question_text": "Які методи повинен реалізувати клас, щоб його можна було використовувати в менеджері контексту 'with'?",
+    "options": [
+      { "option_id": "a", "text": "__open__ та __close__" },
+      { "option_id": "b", "text": "__start__ та __stop__" },
+      { "option_id": "c", "text": "__enter__ та __exit__" },
+      { "option_id": "d", "text": "__init__ та __del__" }
+    ],
+    "correct_answer_id": "c",
+    "explanation": "Метод __enter__ готує ресурс, а __exit__ гарантує його закриття (наприклад, файлу або з'єднання), навіть якщо виникла помилка.",
+    "metadata": { "source": "Python Core Design", "tags": ["Python", "Context Managers", "OOP"] }
+  },
+  {
+    "id": "del-int-026",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-GEN-07",
+    "difficulty": "Intermediate",
+    "question_text": "Який модуль (unit) потрібно підключити в сучасних версіях Delphi для роботи з генериками (TList<T>, TDictionary<K,V>)?",
+    "options": [
+      { "option_id": "a", "text": "System.Collections" },
+      { "option_id": "b", "text": "System.Generics.Collections" },
+      { "option_id": "c", "text": "Vcl.Generics" },
+      { "option_id": "d", "text": "System.Classes" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Саме в System.Generics.Collections зосереджені всі потужні типи контейнерів, які з'явилися в сучасній мові Object Pascal.",
+    "metadata": { "source": "Delphi RTL Guide", "tags": ["Delphi", "Generics", "RTL"] }
+  },
+  {
+    "id": "del-int-027",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-VCL-08",
+    "difficulty": "Intermediate",
+    "question_text": "Що таке 'Visual Styles' (або VCL Styles) і як вони змінили розробку на Delphi в останнє десятиліття?",
+    "options": [
+      { "option_id": "a", "text": "Це можливість малювати компоненти тільки через API Windows." },
+      { "option_id": "b", "text": "Це рушій тем, що дозволяє змінювати вигляд додатку (наприклад, Dark Mode) без переписування коду малювання компонентів." },
+      { "option_id": "c", "text": "Це вбудований редактор іконок." },
+      { "option_id": "d", "text": "Це заміна для бібліотеки FireMonkey." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "VCL Styles дозволяють легко модернізувати старі додатки, додаючи їм сучасний вигляд, включаючи підтримку тем High DPI, що актуально для Windows 10/11.",
+    "metadata": { "source": "Delphi UI Modernization", "tags": ["Delphi", "VCL Styles", "UI"] }
+  },
+  {
+    "id": "sql-int-014",
+    "topic": "SQL",
+    "question_code": "SQL-JSON-09",
+    "difficulty": "Intermediate",
+    "question_text": "Який оператор (у стандарті PostgreSQL/PostgreSQL-сумісних БД) використовується для отримання значення з JSON-поля за ключем як тексту?",
+    "options": [
+      { "option_id": "a", "text": "->" },
+      { "option_id": "b", "text": "->>" },
+      { "option_id": "c", "text": "#>" },
+      { "option_id": "d", "text": "@>" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Оператор '->' повертає об'єкт JSON, тоді як '->>' повертає значення як звичайний текст (string), що зручно для подальшої фільтрації.",
+    "metadata": { "source": "Modern SQL JSON", "tags": ["SQL", "JSON", "PostgreSQL"] }
+  },
+  {
+    "id": "sql-int-015",
+    "topic": "SQL",
+    "question_code": "SQL-OPT-10",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Covering Index' (Покриваючий індекс)?",
+    "options": [
+      { "option_id": "a", "text": "Індекс, який автоматично видаляє старі дані." },
+      { "option_id": "b", "text": "Індекс, який містить усі поля, необхідні для запиту (через INCLUDE), дозволяючи не звертатися до самої таблиці." },
+      { "option_id": "c", "text": "Індекс, що покриває кілька таблиць одночасно." },
+      { "option_id": "d", "text": "Спеціальний індекс для зашифрованих даних." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Використання ключового слова INCLUDE дозволяє додати неключові колонки до індексу, завдяки чому запит виконується повністю всередині індексу (Index Only Scan).",
+    "metadata": { "source": "SQL Performance 2025", "tags": ["SQL", "Indexing", "Optimization"] }
+  },
+  {
+    "id": "py-int-019",
+    "topic": "Python 3",
+    "question_code": "PY3-PAT-11",
+    "difficulty": "Intermediate",
+    "question_text": "Яка конструкція з'явилася в Python 3.10 для реалізації структурного зіставлення шаблонів (Pattern Matching)?",
+    "options": [
+      { "option_id": "a", "text": "switch / case" },
+      { "option_id": "b", "text": "match / case" },
+      { "option_id": "c", "text": "select / when" },
+      { "option_id": "d", "text": "check / pattern" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "match/case — це не просто аналог switch, а потужний інструмент, що дозволяє розпаковувати об'єкти, перевіряти типи та умови всередині шаблонів.",
+    "metadata": { "source": "Python 3.10 Features", "tags": ["Python", "Pattern Matching", "Syntax"] }
+  },
+  {
+    "id": "py-int-020",
+    "topic": "Python 3",
+    "question_code": "PY3-DATA-12",
+    "difficulty": "Easy",
+    "question_text": "Яка головна перевага використання @dataclass (введено в Python 3.7)?",
+    "options": [
+      { "option_id": "a", "text": "Вона робить код швидшим за C++." },
+      { "option_id": "b", "text": "Автоматично генерує методи __init__, __repr__ та __eq__ на основі анотацій типів." },
+      { "option_id": "c", "text": "Дозволяє приховати вихідний код класу." },
+      { "option_id": "d", "text": "Вона автоматично підключає клас до бази даних." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Dataclasses значно скорочують 'бойлерплейт' код, роблячи класи, призначені лише для зберігання даних, чистішими та зрозумілішими.",
+    "metadata": { "source": "Python Core", "tags": ["Python", "OOP", "Dataclasses"] }
+  },
+  {
+    "id": "del-int-028",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-ATTR-09",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Custom Attributes' у Delphi і як їх отримати під час виконання?",
+    "options": [
+      { "option_id": "a", "text": "Це коментарі для документації." },
+      { "option_id": "b", "text": "Це класи, успадковані від TCustomAttribute, які можна 'навісити' на типи/методи та прочитати через RTTI." },
+      { "option_id": "c", "text": "Це параметри командного рядка додатку." },
+      { "option_id": "d", "text": "Це налаштування компілятора в файлі .dproj." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Атрибути дозволяють додавати метадані до коду (наприклад, [JSONName('id')]), які потім використовуються фреймворками для серіалізації або перевірки прав.",
+    "metadata": { "source": "Modern Delphi Metaprogramming", "tags": ["Delphi", "RTTI", "Attributes"] }
+  },
+  {
+    "id": "del-int-029",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-MEM-10",
+    "difficulty": "Intermediate",
+    "question_text": "Який метод рекомендується використовувати в сучасній Delphi для безпечного створення та автоматичного знищення об'єктів у межах одного методу?",
+    "options": [
+      { "option_id": "a", "text": "try..except" },
+      { "option_id": "b", "text": "try..finally" },
+      { "option_id": "c", "text": "TSmartPointer<T>" },
+      { "option_id": "d", "text": "Garbage Collector" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Хоча в деяких бібліотеках є аналоги Smart Pointers, стандартом для Delphi залишається конструкція 'Obj := TClass.Create; try ... finally Obj.Free; end;'.",
+    "metadata": { "source": "Delphi Memory Management", "tags": ["Delphi", "Best Practices"] }
+  },
+  {
+    "id": "sql-int-016",
+    "topic": "SQL",
+    "question_code": "SQL-WIN-11",
+    "difficulty": "Hard",
+    "question_text": "У чому полягає роль речення PARTITION BY у віконних функціях?",
+    "options": [
+      { "option_id": "a", "text": "Воно видаляє дублікати в межах вікна." },
+      { "option_id": "b", "text": "Воно розділяє набір даних на групи (парціції), до яких віконна функція застосовується окремо." },
+      { "option_id": "c", "text": "Воно фізично розбиває таблицю на дискові розділи." },
+      { "option_id": "d", "text": "Воно замінює потребу в індексах." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "На відміну від GROUP BY, PARTITION BY дозволяє обчислювати агрегати (наприклад, суму) для кожної групи, зберігаючи при цьому всі вихідні рядки запиту.",
+    "metadata": { "source": "SQL Advanced Querying", "tags": ["SQL", "Analytics", "Window Functions"] }
+  },
+  {
+    "id": "sql-int-017",
+    "topic": "SQL",
+    "question_code": "SQL-KEYS-12",
+    "difficulty": "Intermediate",
+    "question_text": "Що таке 'Composite Key' (Складений ключ) у дизайні бази даних?",
+    "options": [
+      { "option_id": "a", "text": "Це ключ, який автоматично шифрує дані." },
+      { "option_id": "b", "text": "Первинний ключ, який складається з двох або більше колонок для забезпечення унікальності." },
+      { "option_id": "c", "text": "Ключ, що посилається на іншу таблицю." },
+      { "option_id": "d", "text": "Ключ, який може містити значення NULL." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Складені ключі використовуються, коли жодна окрема колонка не може гарантувати унікальність рядка (часто у таблицях зв'язків 'багато-до-багатьох').",
+    "metadata": { "source": "DB Design Basics", "tags": ["SQL", "Modeling", "Keys"] }
+  },
+  {
+    "id": "py-int-021",
+    "topic": "Python 3",
+    "question_code": "PY3-TYPE-13",
+    "difficulty": "Intermediate",
+    "question_text": "Що таке 'Type Hinting' у Python і чи впливає воно на продуктивність під час виконання?",
+    "options": [
+      { "option_id": "a", "text": "Це спосіб пришвидшити Python до рівня C++." },
+      { "option_id": "b", "text": "Анотації типів для статичного аналізу коду; вони не впливають на швидкість виконання інтерпретатором." },
+      { "option_id": "c", "text": "Механізм, що автоматично перетворює типи даних." },
+      { "option_id": "d", "text": "Система захисту від вірусів у коді." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Анотації типів (наприклад, x: int) допомагають розробникам та IDE знаходити помилки за допомогою інструментів на кшталт mypy, але сам Python ігнорує їх під час виконання.",
+    "metadata": { "source": "Python Typing Guide", "tags": ["Python", "Static Analysis", "Type Hinting"] }
+  },
+  {
+    "id": "py-int-022",
+    "topic": "Python 3",
+    "question_code": "PY3-LIST-14",
+    "difficulty": "Easy",
+    "question_text": "Що таке 'List Comprehension' і яка його основна перевага?",
+    "options": [
+      { "option_id": "a", "text": "Метод стиснення списків для економії пам'яті." },
+      { "option_id": "b", "text": "Компактний синтаксис для створення нових списків на основі існуючих ітерабельних об'єктів." },
+      { "option_id": "c", "text": "Функція для сортування списків у зворотному порядку." },
+      { "option_id": "d", "text": "Спосіб об'єднання двох різних списків." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "List Comprehensions часто працюють швидше за звичайні цикли 'for' і роблять код більш декларативним та читабельним (Pythonic way).",
+    "metadata": { "source": "freeCodeCamp Basics", "tags": ["Python", "Syntax", "Performance"] }
+  },
+  {
+    "id": "del-int-030",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-REST-11",
+    "difficulty": "Intermediate",
+    "question_text": "Яку бібліотеку компонентів (framework) рекомендує Embarcadero для роботи з REST-сервісами в сучасних версіях Delphi?",
+    "options": [
+      { "option_id": "a", "text": "Indy (TIdHTTP)" },
+      { "option_id": "b", "text": "REST Client Library (TRESTClient, TRESTRequest)." },
+      { "option_id": "c", "text": "DataSnap SDK." },
+      { "option_id": "d", "text": "Soap.Win.Bind" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "REST Client Library спеціально розроблена для легкої інтеграції з JSON API, підтримує сучасні протоколи безпеки та візуальне зв'язування даних (LiveBindings).",
+    "metadata": { "source": "Delphi Web Services", "tags": ["Delphi", "REST", "JSON"] }
+  },
+  {
+    "id": "del-int-031",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-CORE-12",
+    "difficulty": "Hard",
+    "question_text": "Яка різниця між ключовими словами 'override' та 'reintroduce' у Delphi?",
+    "options": [
+      { "option_id": "a", "text": "Override замінює метод у VMT, а reintroduce приховує попередження про приховування віртуального методу предка." },
+      { "option_id": "b", "text": "Reintroduce видаляє метод з пам'яті." },
+      { "option_id": "c", "text": "Override використовується лише для конструкторів." },
+      { "option_id": "d", "text": "Різниці немає, це взаємозамінні терміни." }
+    ],
+    "correct_answer_id": "a",
+    "explanation": "Override забезпечує поліморфізм через таблицю віртуальних методів (VMT). Reintroduce каже компілятору, що ми свідомо створюємо новий метод з тим самим ім'ям, не пов'язаний з предком.",
+    "metadata": { "source": "Delphi OOP", "tags": ["Delphi", "OOP", "Keywords"] }
+  },
+  {
+    "id": "sql-int-018",
+    "topic": "SQL",
+    "question_code": "SQL-OPT-13",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Deadlock' у базах даних і як рушій БД зазвичай його вирішує?",
+    "options": [
+      { "option_id": "a", "text": "Це стан, коли база даних вимикається через брак пам'яті." },
+      { "option_id": "b", "text": "Ситуація, коли дві транзакції блокують ресурси одна одної; БД перериває одну з них (victim)." },
+      { "option_id": "c", "text": "Помилка при видаленні первинного ключа." },
+      { "option_id": "d", "text": "Запит, який виконується вічно через нескінченний цикл." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Взаємне блокування вирішується автоматично: СУБД обирає транзакцію з найменшим обсягом виконаної роботи і відкочує її, дозволяючи іншій завершитися.",
+    "metadata": { "source": "DB Engine Logic", "tags": ["SQL", "Transactions", "Deadlocks"] }
+  },
+  {
+    "id": "sql-int-019",
+    "topic": "SQL",
+    "question_code": "SQL-MOD-14",
+    "difficulty": "Intermediate",
+    "question_text": "Яка нормальна форма вимагає відсутності транзитивних залежностей (неключові поля не мають залежати від інших неключових полів)?",
+    "options": [
+      { "option_id": "a", "text": "Перша (1NF)" },
+      { "option_id": "b", "text": "Друга (2NF)" },
+      { "option_id": "c", "text": "Третя (3NF)" },
+      { "option_id": "d", "text": "Нормальна форма Бойса-Кодда" }
+    ],
+    "correct_answer_id": "c",
+    "explanation": "3NF вимагає, щоб кожен атрибут залежав 'тільки від ключа і ні від чого, крім ключа'.",
+    "metadata": { "source": "Database Normalization", "tags": ["SQL", "Design", "Theory"] }
+  },
+  {
+    "id": "sql-int-020",
+    "topic": "SQL",
+    "question_code": "SQL-IDX-15",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Filtered Index' і коли його варто використовувати?",
+    "options": [
+      { "option_id": "a", "text": "Індекс, який автоматично сортує дані за алфавітом." },
+      { "option_id": "b", "text": "Неповний індекс, що створюється лише для підмножини рядків за допомогою WHERE." },
+      { "option_id": "c", "text": "Індекс, який фільтрує дублікати при записі." },
+      { "option_id": "d", "text": "Тимчасовий індекс для одного запиту." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Відфільтровані індекси економлять місце на диску та пришвидшують оновлення, якщо більшість ваших запитів шукають лише певну категорію даних (наприклад, WHERE Status = 'Active').",
+    "metadata": { "source": "SQL Performance 2025", "tags": ["SQL", "Indexing", "Performance"] }
+  },
+  {
+    "id": "py-int-023",
+    "topic": "Python 3",
+    "question_code": "PY3-MET-15",
+    "difficulty": "Hard",
+    "question_text": "Що таке метакласи в Python?",
+    "options": [
+      { "option_id": "a", "text": "Класи, що використовуються лише для збереження метаданих." },
+      { "option_id": "b", "text": "Класи, екземплярами яких є самі класи (класи, що створюють класи)." },
+      { "option_id": "c", "text": "Вбудовані функції для роботи з типами даних." },
+      { "option_id": "d", "text": "Методи, які викликаються автоматично при імпорті модуля." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Метакласи (наслідування від 'type') дозволяють змінювати логіку створення класів, наприклад, для автоматичної реєстрації або перевірки структури.",
+    "metadata": { "source": "Python Deep Dive", "tags": ["Python", "Metaprogramming", "OOP"] }
+  },
+  {
+    "id": "py-int-024",
+    "topic": "Python 3",
+    "question_code": "PY3-COL-16",
+    "difficulty": "Intermediate",
+    "question_text": "Яка часова складність (O-notation) пошуку ключа в словнику (dict) у середньому випадку?",
+    "options": [
+      { "option_id": "a", "text": "O(1)" },
+      { "option_id": "b", "text": "O(log n)" },
+      { "option_id": "c", "text": "O(n)" },
+      { "option_id": "d", "text": "O(n log n)" }
+    ],
+    "correct_answer_id": "a",
+    "explanation": "Словники в Python реалізовані через хеш-таблиці, що забезпечує константний час доступу до елемента за ключем.",
+    "metadata": { "source": "Python Algorithms", "tags": ["Python", "Complexity", "Data Structures"] }
+  },
+  {
+    "id": "py-int-025",
+    "topic": "Python 3",
+    "question_code": "PY3-MRO-17",
+    "difficulty": "Hard",
+    "question_text": "Що таке MRO (Method Resolution Order) і як Python вирішує конфлікти при множинному успадкуванні?",
+    "options": [
+      { "option_id": "a", "text": "Використовує алфавітний порядок імен класів." },
+      { "option_id": "b", "text": "Використовує алгоритм лінеаризації C3 для побудови послідовності пошуку методів." },
+      { "option_id": "c", "text": "Завжди обирає метод з першого вказаного класу-предка." },
+      { "option_id": "d", "text": "Забороняє виклик методів з однаковими іменами." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Алгоритм C3 гарантує, що жоден клас не з'явиться раніше своїх нащадків і зберігається монотонність ієрархії.",
+    "metadata": { "source": "Python Advanced OOP", "tags": ["Python", "OOP", "MRO"] }
+  },
+  {
+    "id": "del-int-032",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-ARC-13",
+    "difficulty": "Hard",
+    "question_text": "Як вирішити проблему циклічних посилань (Circular References) при роботі з інтерфейсами в Delphi?",
+    "options": [
+      { "option_id": "a", "text": "Використовувати деструктор вручну для обох об'єктів." },
+      { "option_id": "b", "text": "Використовувати слабкі посилання (Weak References) за допомогою атрибута [Weak]." },
+      { "option_id": "c", "text": "Видалити один з інтерфейсів." },
+      { "option_id": "d", "text": "Завжди використовувати TObject замість IInterface." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Атрибут [Weak] запобігає інкременту лічильника посилань, що дозволяє коректно знищити об'єкти, які посилаються один на одного.",
+    "metadata": { "source": "Modern Delphi Memory", "tags": ["Delphi", "Interfaces", "ARC"] }
+  },
+  {
+    "id": "del-int-033",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-VCL-14",
+    "difficulty": "Intermediate",
+    "question_text": "Яка різниця між методами Repaint, Refresh та Invalidate у компонентах VCL?",
+    "options": [
+      { "option_id": "a", "text": "Різниці немає." },
+      { "option_id": "b", "text": "Invalidate позначає область як недійсну; Repaint викликає малювання негайно; Refresh — це Invalidate + ProcessMessages." },
+      { "option_id": "c", "text": "Repaint використовується лише для графіки, Invalidate — для тексту." },
+      { "option_id": "d", "text": "Invalidate видаляє компонент з пам'яті." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Invalidate — найбільш продуктивний спосіб, оскільки він дозволяє системі Windows самій вирішити, коли перемалювати вікно в черзі повідомлень.",
+    "metadata": { "source": "VCL Graphics", "tags": ["Delphi", "VCL", "WinAPI"] }
+  },
+  {
+    "id": "del-int-034",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-GEN-15",
+    "difficulty": "Intermediate",
+    "question_text": "Що таке Generic Constraints у Delphi?",
+    "options": [
+      { "option_id": "a", "text": "Обмеження на кількість елементів у списку." },
+      { "option_id": "b", "text": "Правила, що вказують, які типи можна передавати в generic (наприклад, тільки класи або типи з конструктором)." },
+      { "option_id": "c", "text": "Спеціальні команди для пришвидшення компіляції." },
+      { "option_id": "d", "text": "Заборона використання генериків у DLL." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Наприклад, 'type TMyClass<T: class, constructor>' гарантує, що T буде класом і матиме конструктор Create без параметрів.",
+    "metadata": { "source": "Delphi Generics", "tags": ["Delphi", "Generics", "Syntax"] }
+  },
+  {
+    "id": "sql-fin-021",
+    "topic": "SQL",
+    "question_code": "SQL-DWH-16",
+    "difficulty": "Intermediate",
+    "question_text": "Яка схема даних у сховищах (Data Warehouse) складається з центральної таблиці фактів та набору таблиць вимірів, що не мають власних підтаблиць?",
+    "options": [
+      { "option_id": "a", "text": "Сніжинка (Snowflake)" },
+      { "option_id": "b", "text": "Зірка (Star Schema)" },
+      { "option_id": "c", "text": "Ланцюжок (Chain)" },
+      { "option_id": "d", "text": "Куб (Cube)" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Схема 'Зірка' є найпростішою: таблиці вимірів денормалізовані, що пришвидшує аналітичні запити.",
+    "metadata": { "source": "Data Modeling", "tags": ["SQL", "DWH", "Design"] }
+  },
+  {
+    "id": "sql-fin-022",
+    "topic": "SQL",
+    "question_code": "SQL-DML-17",
+    "difficulty": "Intermediate",
+    "question_text": "Що робить оператор MERGE?",
+    "options": [
+      { "option_id": "a", "text": "Об'єднує два стовпці в один." },
+      { "option_id": "b", "text": "Виконує вставку, оновлення або видалення в одній таблиці на основі результатів зіставлення з іншою (Upsert)." },
+      { "option_id": "c", "text": "Склеює рядки з двох таблиць без перевірки умов." },
+      { "option_id": "d", "text": "Видаляє дублікати з таблиці." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "MERGE дозволяє синхронізувати дві таблиці за один крок, автоматично вирішуючи, чи потрібно додати новий запис, чи оновити існуючий.",
+    "metadata": { "source": "SQL Standards", "tags": ["SQL", "DML", "Operations"] }
+  },
+  {
+    "id": "sql-fin-023",
+    "topic": "SQL",
+    "question_code": "SQL-JSON-18",
+    "difficulty": "Hard",
+    "question_text": "У чому перевага типу даних JSONB порівняно з JSON у PostgreSQL?",
+    "options": [
+        { "option_id": "a", "text": "JSONB займає менше місця." },
+        { "option_id": "b", "text": "JSONB зберігає дані в бінарному форматі, що дозволяє використовувати індекси (GIN) та швидше опрацьовувати запити." },
+        { "option_id": "c", "text": "JSONB не дозволяє зберігати вкладені об'єкти." },
+        { "option_id": "d", "text": "JSONB підтримує коментарі всередині тексту." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Хоча вставка JSONB трохи повільніша через парсинг, пошук у ньому значно швидший завдяки підтримці GIN-індексів.",
+    "metadata": { "source": "PostgreSQL Docs", "tags": ["SQL", "JSONB", "Performance"] }
+  },
+  {
+    "id": "sql-fin-024",
+    "topic": "SQL",
+    "question_code": "SQL-VUE-19",
+    "difficulty": "Intermediate",
+    "question_text": "Що таке 'Materialized View' (Матеріалізоване представлення)?",
+    "options": [
+        { "option_id": "a", "text": "Це представлення, яке не займає місця на диску." },
+        { "option_id": "b", "text": "Це запит, результат якого фізично зберігається в таблиці та потребує оновлення (refresh)." },
+        { "option_id": "c", "text": "Це тимчасова таблиця, що видаляється після сеансу." },
+        { "option_id": "d", "text": "Це віртуальна таблиця, яка завжди виконується 'на льоту'." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Матеріалізовані в'юхи використовуються для кешування важких аналітичних обчислень.",
+    "metadata": { "source": "SQL Performance", "tags": ["SQL", "Views"] }
+  },
+  {
+    "id": "sql-fin-025",
+    "topic": "SQL",
+    "question_code": "SQL-SEC-20",
+    "difficulty": "Easy",
+    "question_text": "Яка загроза безпеці виникає при прямій конкатенації вводу користувача в SQL запит?",
+    "options": [
+        { "option_id": "a", "text": "Buffer Overflow" },
+        { "option_id": "b", "text": "SQL Injection" },
+        { "option_id": "c", "text": "Cross-Site Scripting" },
+        { "option_id": "d", "text": "DDoS" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "SQL Injection дозволяє зловмиснику змінити логіку запиту. Використовуйте параметризовані запити для запобігання.",
+    "metadata": { "source": "OWASP", "tags": ["Security", "SQL"] }
+  },
+  {
+    "id": "sql-fin-026",
+    "topic": "SQL", "question_code": "SQL-OPT-21",
+    "difficulty": "Hard", "question_text": "Що означає операція 'Hash Join' у плані виконання запиту?",
+    "options": [
+        { "option_id": "a", "text": "Це найповільніший вид з'єднання." },
+        { "option_id": "b", "text": "СУБД створює хеш-таблицю в пам'яті для меншої таблиці та порівнює її з рядками більшої таблиці." },
+        { "option_id": "c", "text": "З'єднання за допомогою індексів типу B-Tree." },
+        { "option_id": "d", "text": "Це з'єднання лише зашифрованих полів." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Hash Join дуже ефективний для великих наборів даних, коли немає відповідних індексів для Nested Loops Join.",
+    "metadata": { "source": "Execution Plans", "tags": ["SQL", "Performance"] }
+  },
+  {
+    "id": "sql-fin-027",
+    "topic": "SQL",
+    "question_code": "SQL-DML-22",
+    "difficulty": "Intermediate",
+    "question_text": "Як видалити дублікати з таблиці, залишивши лише один унікальний рядок для кожної групи?",
+    "options": [
+        { "option_id": "a", "text": "Використати SELECT DISTINCT." },
+        { "option_id": "b", "text": "Використати CTE з функцією ROW_NUMBER() та видалити рядки, де номер > 1." },
+        { "option_id": "c", "text": "Видалити всю таблицю і створити заново." },
+        { "option_id": "d", "text": "Використати команду TRUNCATE." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Це стандартний патерн: нумеруємо рядки в партиціях за ключовими полями і видаляємо все, крім першого номера.",
+    "metadata": { "source": "SQL Patterns", "tags": ["SQL", "Data Cleaning"] }
+  },
+  {
+    "id": "sql-fin-028",
+    "topic": "SQL",
+    "question_code": "SQL-TRANS-23",
+    "difficulty": "Hard",
+    "question_text": "Який рівень ізоляції транзакцій запобігає 'Non-repeatable reads', але допускає 'Phantom reads'?",
+    "options": [
+        { "option_id": "a", "text": "Read Uncommitted" },
+        { "option_id": "b", "text": "Read Committed" },
+        { "option_id": "c", "text": "Repeatable Read" },
+        { "option_id": "d", "text": "Serializable" }
+    ],
+    "correct_answer_id": "c",
+    "explanation": "Repeatable Read гарантує, що якщо ви прочитаєте рядок двічі, дані в ньому не зміняться, проте нові рядки (фантоми) можуть з'явитися.",
+    "metadata": { "source": "ACID Properties", "tags": ["SQL", "Transactions"] }
+  },
+  {
+    "id": "sql-fin-029",
+    "topic": "SQL",
+    "question_code": "SQL-FUNC-24",
+    "difficulty": "Intermediate",
+    "question_text": "Яка різниця між COALESCE та ISNULL (у T-SQL)?",
+    "options": [
+        { "option_id": "a", "text": "Різниці немає." },
+        { "option_id": "b", "text": "COALESCE приймає декілька аргументів і є стандартом ANSI SQL; ISNULL приймає лише два." },
+        { "option_id": "c", "text": "ISNULL працює повільніше." },
+        { "option_id": "d", "text": "COALESCE працює лише з числами." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "COALESCE повертає перший аргумент, що не є NULL, із необмеженого списку.",
+    "metadata": { "source": "SQL Functions", "tags": ["SQL", "Null Handling"] }
+  },
+  {
+    "id": "sql-fin-030",
+    "topic": "SQL",
+    "question_code": "SQL-TRIG-25",
+    "difficulty": "Intermediate",
+    "question_text": "Що таке 'Instead Of Trigger'?",
+    "options": [
+        { "option_id": "a", "text": "Тригер, який виконується після завершення транзакції." },
+        { "option_id": "b", "text": "Тригер, який виконується ЗАМІСТЬ основної операції (DML), що його викликала." },
+        { "option_id": "c", "text": "Тригер, який неможливо видалити." },
+        { "option_id": "d", "text": "Тригер для автоматичного резервного копіювання." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Такі тригери часто використовуються для того, щоб зробити складні View доступними для оновлення (Updateable Views).",
+    "metadata": { "source": "Database Logic", "tags": ["SQL", "Triggers"] }
+  },
+  {
+    "id": "py-fin-020",
+    "topic": "Python 3",
+    "question_code": "PY3-FAST-17",
+    "difficulty": "Intermediate",
+    "question_text": "Яка бібліотека Python є лідером для створення асинхронних API завдяки використанню Pydantic та анотацій типів?",
+    "options": [
+      { "option_id": "a", "text": "Django" },
+      { "option_id": "b", "text": "Flask" },
+      { "option_id": "c", "text": "FastAPI" },
+      { "option_id": "d", "text": "Tornado" }
+    ],
+    "correct_answer_id": "c",
+    "explanation": "FastAPI автоматично генерує Swagger-документацію та забезпечує високу швидкість роботи за рахунок асинхронності.",
+    "metadata": { "source": "Modern Web Frameworks", "tags": ["Python", "Web", "FastAPI"] }
+  },
+  {
+    "id": "py-fin-021",
+    "topic": "Python 3",
+    "question_code": "PY3-DYN-18",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Monkey Patching' у Python?",
+    "options": [
+      { "option_id": "a", "text": "Спосіб оптимізації коду для мобільних пристроїв." },
+      { "option_id": "b", "text": "Динамічна заміна атрибутів або методів модуля чи класу під час виконання (runtime)." },
+      { "option_id": "c", "text": "Автоматичне тестування інтерфейсу користувача." },
+      { "option_id": "d", "text": "Назва офіційного оновлення Python 3.12." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Це потужний, але ризикований прийом, що часто використовується в тестах для підміни реальних функцій об'єктами-заглушками (mocks).",
+    "metadata": { "source": "Python Advanced Topics", "tags": ["Python", "Dynamic Architecture"] }
+  },
+  {
+    "id": "py-fin-022",
+    "topic": "Python 3",
+    "question_code": "PY3-GIL-19",
+    "difficulty": "Hard",
+    "question_text": "Яка зміна в Python 3.13 стосується GIL (Global Interpreter Lock)?",
+    "options": [
+      { "option_id": "a", "text": "GIL було повністю видалено з усіх версій." },
+      { "option_id": "b", "text": "Додано експериментальну підтримку запуску без GIL (free-threaded mode)." },
+      { "option_id": "c", "text": "GIL було замінено на Garbage Collector від Java." },
+      { "option_id": "d", "text": "GIL тепер працює лише для Linux." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Це важливий крок до справжньої багатопоточності, що дозволяє виконувати Python-код паралельно на багатьох ядрах без блокувань.",
+    "metadata": { "source": "Python 3.13 Release Notes", "tags": ["Python", "GIL", "Multithreading"] }
+  },
+  {
+    "id": "py-fin-023",
+    "topic": "Python 3",
+    "question_code": "PY3-GEN-20",
+    "difficulty": "Intermediate",
+    "question_text": "Для чого використовується конструкція 'yield from'?",
+    "options": [
+      { "option_id": "a", "text": "Для миттєвого завершення генератора." },
+      { "option_id": "b", "text": "Для делегування виконання іншому генератору або ітерованому об'єкту." },
+      { "option_id": "c", "text": "Для отримання даних з віддаленого сервера." },
+      { "option_id": "d", "text": "Це застарілий синтаксис, що більше не використовується." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "yield from дозволяє створювати ланцюжки генераторів, передаючи значення з вкладеного ітератора назовні.",
+    "metadata": { "source": "Python Core Design", "tags": ["Python", "Generators"] }
+  },
+  {
+    "id": "py-fin-024",
+    "topic": "Python 3",
+    "question_code": "PY3-SCR-21",
+    "difficulty": "Easy",
+    "question_text": "Яка різниця між операторами 'is' та '=='?",
+    "options": [
+      { "option_id": "a", "text": "Різниці немає, це синоніми." },
+      { "option_id": "b", "text": "'==' перевіряє рівність значень, 'is' перевіряє ідентичність об'єктів у пам'яті." },
+      { "option_id": "c", "text": "'is' швидше за '==' у всіх випадках." },
+      { "option_id": "d", "text": "'==' працює лише для числових типів." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Наприклад, два списки з однаковими даними будуть рівні через '==', але будуть різними об'єктами для 'is'.",
+    "metadata": { "source": "Python Basics", "tags": ["Python", "Logic"] }
+  },
+  {
+    "id": "py-fin-025",
+    "topic": "Python 3",
+    "question_code": "PY3-PIP-22",
+    "difficulty": "Intermediate",
+    "question_text": "Який файл використовується в сучасних проектах для керування залежностями згідно з PEP 518?",
+    "options": [
+      { "option_id": "a", "text": "requirements.txt" },
+      { "option_id": "b", "text": "setup.py" },
+      { "option_id": "c", "text": "pyproject.toml" },
+      { "option_id": "d", "text": "config.json" }
+    ],
+    "correct_answer_id": "c",
+    "explanation": "pyproject.toml — це новий стандарт для пакування та конфігурації інструментів (Poetry, Black, Ruff тощо).",
+    "metadata": { "source": "Python Packaging", "tags": ["Python", "Packaging", "Pip"] }
+  },
+  {
+    "id": "py-fin-026",
+    "topic": "Python 3",
+    "question_code": "PY3-WAL-23",
+    "difficulty": "Intermediate",
+    "question_text": "Що таке 'Walrus operator' (:=) і в якій версії він з'явився?",
+    "options": [
+      { "option_id": "a", "text": "Оператор присвоєння виразу (Python 3.8)." },
+      { "option_id": "b", "text": "Оператор для роботи з великими даними (Python 3.9)." },
+      { "option_id": "c", "text": "Символ для завершення циклу (Python 3.10)." },
+      { "option_id": "d", "text": "Оператор для об'єднання списків (Python 3.5)." }
+    ],
+    "correct_answer_id": "a",
+    "explanation": "Він дозволяє присвоювати значення змінній прямо всередині виразу (наприклад, в умові if або while).",
+    "metadata": { "source": "Python 3.8 Features", "tags": ["Python", "Operators"] }
+  },
+  {
+    "id": "py-fin-027",
+    "topic": "Python 3",
+    "question_code": "PY3-DOCK-24",
+    "difficulty": "Intermediate",
+    "question_text": "Для чого використовується функція super() у конструкторі класу?",
+    "options": [
+      { "option_id": "a", "text": "Для створення статичного методу." },
+      { "option_id": "b", "text": "Для виклику методів батьківського класу без явного вказання його імені." },
+      { "option_id": "c", "text": "Для прискорення створення екземпляра класу." },
+      { "option_id": "d", "text": "Для видалення об'єкта з пам'яті." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "super() дозволяє коректно працювати з множинним успадкуванням, слідуючи порядку MRO.",
+    "metadata": { "source": "Python OOP", "tags": ["Python", "Inheritance"] }
+  },
+  {
+    "id": "py-fin-028",
+    "topic": "Python 3",
+    "question_code": "PY3-LIST-25",
+    "difficulty": "Hard",
+    "question_text": "Який тип даних у Python реалізовано як двозв'язний список для швидких маніпуляцій з обох кінців?",
+    "options": [
+      { "option_id": "a", "text": "list" },
+      { "option_id": "b", "text": "collections.deque" },
+      { "option_id": "c", "text": "set" },
+      { "option_id": "d", "text": "array.array" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "На відміну від звичайного списку, видалення першого елемента в deque займає O(1) часу.",
+    "metadata": { "source": "Python Collections Library", "tags": ["Python", "Data Structures"] }
+  },
+  {
+    "id": "py-fin-029",
+    "topic": "Python 3",
+    "question_code": "PY3-VAR-26",
+    "difficulty": "Intermediate",
+    "question_text": "Що означає префікс 'self' у методах класу?",
+    "options": [
+      { "option_id": "a", "text": "Посилання на сам клас." },
+      { "option_id": "b", "text": "Посилання на поточний екземпляр класу (об'єкт)." },
+      { "option_id": "c", "text": "Спеціальна змінна для глобального доступу." },
+      { "option_id": "d", "text": "Це необов'язковий декоратор." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Через self методи отримують доступ до атрибутів і стану конкретного об'єкта.",
+    "metadata": { "source": "Python Basics", "tags": ["Python", "OOP"] }
+  },
+  {
+    "id": "py-fin-030",
+    "topic": "Python 3",
+    "question_code": "PY3-CLOS-27",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Closure' (замикання)?",
+    "options": [
+      { "option_id": "a", "text": "Функція, що викликає сама себе (рекурсія)." },
+      { "option_id": "b", "text": "Вкладена функція, яка запам'ятовує змінні зі свого локального оточення навіть після завершення зовнішньої функції." },
+      { "option_id": "c", "text": "Спосіб закриття з'єднань з базою даних." },
+      { "option_id": "d", "text": "Механізм автоматичного видалення об'єктів." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Замикання дозволяють 'прив'язувати' дані до функції, не використовуючи класи.",
+    "metadata": { "source": "Functional Programming", "tags": ["Python", "Closures"] }
+  },
+{
+    "id": "del-fin-022",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-ARC-16",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Interface-based programming' і чому воно критичне для Unit Testing?",
+    "options": [
+      { "option_id": "a", "text": "Використання лише візуальних компонентів." },
+      { "option_id": "b", "text": "Використання інтерфейсів для зменшення зв'язності (decoupling), що дозволяє підміняти реальні класи на моки." },
+      { "option_id": "c", "text": "Програмування інтерфейсу користувача в коді." },
+      { "option_id": "d", "text": "Підключення до Windows API." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Інтерфейси дозволяють абстрагуватися від реалізації, що полегшує тестування окремих модулів незалежно один від одного.",
+    "metadata": { "source": "Delphi Software Architecture", "tags": ["Delphi", "SOLID", "Testing"] }
+  },
+  {
+    "id": "del-fin-023",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-FMX-17",
+    "difficulty": "Intermediate",
+    "question_text": "Яка ключова відмінність FireMonkey (FMX) від VCL?",
+    "options": [
+      { "option_id": "a", "text": "VCL швидший за FMX на всіх платформах." },
+      { "option_id": "b", "text": "VCL базується на Windows API, а FMX — кросплатформна бібліотека з використанням GPU-малювання." },
+      { "option_id": "c", "text": "FMX працює лише на мобільних пристроях." },
+      { "option_id": "d", "text": "FMX — це заміна для SQL у Delphi." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "FMX малює кожен піксель самостійно через DirectX або OpenGL, що дозволяє працювати на macOS, Android та iOS.",
+    "metadata": { "source": "Embarcadero Frameworks", "tags": ["Delphi", "FMX", "VCL"] }
+  },
+  {
+    "id": "del-fin-024",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-DPI-18",
+    "difficulty": "Intermediate",
+    "question_text": "Як сучасні версії Delphi (10.3+) вирішують проблему 'мильного' інтерфейсу на 4K моніторах?",
+    "options": [
+      { "option_id": "a", "text": "Ніяк, Delphi не підтримує 4K." },
+      { "option_id": "b", "text": "Через підтримку 'Per-Monitor V2 High DPI' та компонент TVirtualImageList." },
+      { "option_id": "c", "text": "Збільшенням розміру всіх кнопок вручну." },
+      { "option_id": "d", "text": "Шляхом відмови від стандартних іконок." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Нові компоненти VCL автоматично масштабуються при переміщенні форми між моніторами з різним DPI.",
+    "metadata": { "source": "Modern VCL Features", "tags": ["Delphi", "High DPI", "UI"] }
+  },
+  {
+    "id": "del-fin-025",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-DYN-19",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Method Reference' (посилання на метод) у Delphi?",
+    "options": [
+      { "option_id": "a", "text": "Звичайна адреса функції в пам'яті." },
+      { "option_id": "b", "text": "Тип, що може зберігати посилання на метод об'єкта, статичний або анонімний метод." },
+      { "option_id": "c", "text": "Спосіб виклику процедур з DLL." },
+      { "option_id": "d", "text": "Застаріла технологія Delphi 7." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Method references є гнучкішими за звичайні 'procedure of object' і широко використовуються в анонімних методах.",
+    "metadata": { "source": "Modern Pascal Syntax", "tags": ["Delphi", "Metaprogramming"] }
+  },
+  {
+    "id": "del-fin-026",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-SER-20",
+    "difficulty": "Intermediate",
+    "question_text": "Який клас у сучасній Delphi використовується для автоматичної серіалізації об'єктів у JSON?",
+    "options": [
+      { "option_id": "a", "text": "TJsonObject.ToString" },
+      { "option_id": "b", "text": "TJson.ObjectToJsonString (з модуля REST.Json)." },
+      { "option_id": "c", "text": "TSuperObject." },
+      { "option_id": "d", "text": "TRegistry." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "TJson автоматично обробляє публічні властивості об'єкта, перетворюючи їх на JSON-структуру.",
+    "metadata": { "source": "Delphi JSON Library", "tags": ["Delphi", "JSON", "Serialization"] }
+  },
+  {
+    "id": "del-fin-027",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-PAR-21",
+    "difficulty": "Hard",
+    "question_text": "Для чого призначений метод TParallel.For з бібліотеки PPL?",
+    "options": [
+      { "option_id": "a", "text": "Для запуску циклу в окремому процесі Windows." },
+      { "option_id": "b", "text": "Для автоматичного розпаралелювання ітерацій циклу між усіма ядрами процесора." },
+      { "option_id": "c", "text": "Для паралельного запису в базу даних." },
+      { "option_id": "d", "text": "Це просто синонім для звичайного циклу for." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "PPL дозволяє значно прискорити обчислення, ефективно використовуючи потужність багатоядерних систем.",
+    "metadata": { "source": "Parallel Programming Library", "tags": ["Delphi", "Concurrency"] }
+  },
+  {
+    "id": "del-fin-028",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-VCL-22",
+    "difficulty": "Easy",
+    "question_text": "Який метод рекомендується для безпечного звільнення динамічно створеної форми?",
+    "options": [
+      { "option_id": "a", "text": "Form.Free" },
+      { "option_id": "b", "text": "Form.Release" },
+      { "option_id": "c", "text": "Form.Destroy" },
+      { "option_id": "d", "text": "Form.Close" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Release гарантує, що форма буде знищена лише після того, як всі повідомлення з її черги будуть оброблені.",
+    "metadata": { "source": "VCL Memory Management", "tags": ["Delphi", "UI Best Practices"] }
+  },
+  {
+    "id": "del-fin-029",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-VAR-23",
+    "difficulty": "Intermediate",
+    "question_text": "Що таке 'Inline Variable Declaration' (Delphi 10.3+)?",
+    "options": [
+      { "option_id": "a", "text": "Оголошення змінної в окремому unit-і." },
+      { "option_id": "b", "text": "Можливість оголошувати змінні прямо всередині блоку begin...end." },
+      { "option_id": "c", "text": "Спосіб оголошення глобальних констант." },
+      { "option_id": "d", "text": "Змінна, що не потребує пам'яті." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Це дозволяє звузити область видимості змінної та автоматично виводити її тип (type inference).",
+    "metadata": { "source": "Modern Pascal Updates", "tags": ["Delphi", "Syntax"] }
+  },
+  {
+    "id": "del-fin-030",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-INT-24",
+    "difficulty": "Hard",
+    "question_text": "У чому небезпека змішування звичайних вказівок на об'єкти з інтерфейсними посиланнями (mixing)?",
+    "options": [
+      { "option_id": "a", "text": "Це призводить до сповільнення процесора." },
+      { "option_id": "b", "text": "Ризик передчасного видалення об'єкта через лічильник посилань (ARC)." },
+      { "option_id": "c", "text": "Це заборонено компілятором." },
+      { "option_id": "d", "text": "Втрачається доступ до властивостей об'єкта." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Коли лічильник посилань інтерфейсу стає 0, об'єкт видаляється, навіть якщо звичайна вказівка на нього ще використовується.",
+    "metadata": { "source": "Delphi Memory Pitfalls", "tags": ["Delphi", "Interfaces", "ARC"] }
+  },
+  {
+    "id": "del-fin-031",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-DB-25",
+    "difficulty": "Intermediate",
+    "question_text": "Який сучасний рушій доступу до даних є стандартом у Delphi сьогодні?",
+    "options": [
+      { "option_id": "a", "text": "BDE" },
+      { "option_id": "b", "text": "FireDAC" },
+      { "option_id": "c", "text": "dbExpress" },
+      { "option_id": "d", "text": "ADO (dbGo)" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "FireDAC забезпечує швидкий, кросплатформний та уніфікований доступ до майже всіх популярних СУБД.",
+    "metadata": { "source": "Embarcadero Database Guide", "tags": ["Delphi", "FireDAC", "Database"] }
+  },
+  {
+    "id": "del-fin-032",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-OOP-26",
+    "difficulty": "Intermediate",
+    "question_text": "Що означає специфікатор 'strict private'?",
+    "options": [
+      { "option_id": "a", "text": "Доступ лише для поточного модуля (unit)." },
+      { "option_id": "b", "text": "Доступ виключно для методів поточного класу (навіть у межах одного unit-а)." },
+      { "option_id": "c", "text": "Доступ лише для читання." },
+      { "option_id": "d", "text": "Приватний доступ, що діє лише в режимі Debug." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "На відміну від звичайного private, strict private забороняє доступ іншим класам, навіть якщо вони описані в тому самому файлі.",
+    "metadata": { "source": "Delphi Encapsulation", "tags": ["Delphi", "OOP"] }
+  },
+  {
+    "id": "del-fin-033",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-GEN-27",
+    "difficulty": "Hard",
+    "question_text": "Яка генерична колекція найкраще підходить для швидкого пошуку об'єкта за унікальним рядковим ключем?",
+    "options": [
+      { "option_id": "a", "text": "TList<T>" },
+      { "option_id": "b", "text": "TDictionary<string, T>" },
+      { "option_id": "c", "text": "TStack<T>" },
+      { "option_id": "d", "text": "TArray<T>" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "TDictionary використовує хешування, що дозволяє отримувати доступ до даних майже миттєво (O(1)).",
+    "metadata": { "source": "Generics Collections Library", "tags": ["Delphi", "Generics", "Optimization"] }
+  }
+]
