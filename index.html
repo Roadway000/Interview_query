@@ -9,37 +9,57 @@
             --red: #e74c3c;
             --dark: #2c3e50;
             --light: #ecf0f1;
+            --blue: #3498db;
         }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #627584; margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; background: #e8f7fe; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .container { max-width: 800px; margin: 0 auto; background: #e8f7fe; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative;}
 
         /* Верхня панель тема, складність, рахунок */
         .top-panel { display: flex; justify-content: space-between; border-bottom: 2px solid var(--light); padding-bottom: 10px; margin-bottom: 15px; font-weight: bold; }
 
         /* Панель керування */
-        .nav-controls { display: flex; justify-content: space-between; margin-top: 20px; }
-        button { padding: 10px 20px; border: none; border-radius: 5px; background: var(--dark); color: white; cursor: pointer; }
+        .nav-controls { display: flex; justify-content: space-between; margin-top: 10px; }
+        button { padding: 10px 20px; border: none; border-radius: 5px; background: var(--dark); color: white; cursor: pointer; font-weight: 500; }
         button:disabled { background: #ccc; cursor: not-allowed; }
 
         /* Пояснення */
-        #explanation-box { display: none; padding: 15px; margin-bottom: 15px; border-radius: 8px; background: rgba(52, 152, 219, 0.1); border-left: 5px solid #3498db; }
+        #explanation-box { display: none; padding: 15px; margin-bottom: 15px; border-radius: 8px; background: rgba(52, 152, 219, 0.1); border-left: 5px solid #3498db; line-height: 1.5; }
 
         /* Середня панель сірий фон => #8497a6 */
         .question-section { margin-bottom: 20px; }
-        .q-header { color: var(--dark); margin-bottom: 15px; }
+        .q-header { color: var(--dark); margin-bottom: 15px; line-height: 1.4; white-space: pre-wrap; /* Змушує браузер бачити переноси рядків та правильні пробіли коду Python */}
         .options-list { list-style: none; padding: 0; }
         .option-item {
             padding: 10px; margin-bottom: 6px; border: 1px solid #ddd; border-radius: 6px;
-            cursor: pointer; transition: 0.3s; background: white;
+            cursor: pointer; transition: 0.2s; background: white;
         }
-        .option-item:hover { background: #f9f9f9; }
-        .correct { background-color: rgba(46, 204, 113, 0.4) !important; border-color: var(--green); }
-        .wrong { background-color: rgba(231, 76, 60, 0.4) !important; border-color: var(--red); }
+        .option-item.selectable:hover { background: #f9f9f9; border-color: #bbb; }
+        .correct { background-color: rgba(46, 204, 113, 0.4) !important; border-color: var(--green); color: #1e7e34; font-weight: bold; }
+        .wrong { background-color: rgba(231, 76, 60, 0.4) !important; border-color: var(--red); color: #bd2130; font-weight: bold;}
+        .disabled-click { cursor: default; }
 
         /* Фільтри */
         .filter-section { margin-top: 30px; padding: 15px; background: #ccc; border-radius: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .filter-section input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
         .filter-title { grid-column: span 2; font-weight: bold; margin-bottom: 5px; }
+
+        /* Продовгувата кнопка Адмінки */
+        .admin-toggle-btn { width: 100%; margin-top: 20px; padding: 12px; background: #7f8c8d; color: white; border: none; border-radius: 6px; font-weight: bold; letter-spacing: 2px; cursor: pointer; transition: 0.3s; }
+        .admin-toggle-btn:hover { background: var(--dark); }
+
+        /* Спливаюче модальне вікно (Адмінка) */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 25px; border-radius: 12px; max-width: 600px; width: 90%; max-height: 85vh; overflow-y: auto; box-shadow: 0 5px 25px rgba(0,0,0,0.3); position: relative; }
+        .close-modal { position: absolute; top: 15px; right: 15px; font-size: 24px; cursor: pointer; color: #999; }
+        .close-modal:hover { color: #333; }
+
+        .admin-section { border-top: 1px solid #eee; margin-top: 15px; padding-top: 15px; }
+        .admin-btn { background: var(--blue); margin-right: 10px; margin-bottom: 10px; }
+        .admin-btn.download { background: var(--green); }
+        .admin-btn.danger { background: var(--red); }
+
+        textarea { width: 100%; height: 120px; margin-top: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: monospace; resize: vertical; box-sizing: border-box; }
+        .prompt-box { background: #f9f9f9; padding: 10px; border-left: 3px solid var(--blue); font-size: 0.85em; margin-top: 10px; white-space: pre-line; }
     </style>
 </head>
 <body>
@@ -50,22 +70,19 @@
         <div>Складність: <span id="display-diff">-</span></div>
         <div>Рахунок: <span id="score">0</span></div>
     </div>
-
     <div class="nav-controls">
-        <button id="prev-btn" onclick="changeQuestion(-1)">← Попереднє</button>
+        <button id="prev-btn" onclick="changeQuestion(-1,false)">← Попереднє</button>
+        <button id="first-btn" onclick="changeQuestion(0,true)">Перше |←</button>
         <span id="q-number">0 / 0</span>
-        <button id="next-btn" onclick="changeQuestion(1)">Наступне →</button>
+        <button id="last-btn" onclick="changeQuestion(0,false)">Останнє →|</button>
+        <button id="next-btn" onclick="changeQuestion(1,false)">Наступне →</button>
     </div>
-
     <div id="explanation-box">
         <strong>Пояснення:</strong> <span id="explanation-text"></span>
     </div>
-
     <div class="question-section">
-        <h3 class="q-header">
-            <span id="q-code" style="color: #7f8c8d; font-size: 0.9em;"></span>
-            <span id="q-source">Джерело...</span><br>
-            <span id="q-text">Завантаження запитань...</span>
+        <h3 class="q-header"><span id="q-code" style="color: #7f8c8d; font-size: 0.9em;"></span> <span id="q-source" style="color: #7f8c8d; font-size: 0.9em;">Джерело...</span>
+        <span id="q-text">Завантаження запитань...</span>
         </h3>
         <div id="options-container" class="options-list"></div>
     </div>
@@ -81,8 +98,51 @@
         <input type="text" placeholder="Джерело" oninput="applyFilters('source', this.value)">
         <input type="text" placeholder="Теги (metadata)" oninput="applyFilters('tags', this.value)">
     </div>
-</div>
 
+    <button class="admin-toggle-btn" onclick="toggleModal(true)">⚙️ А Д М І Н К А  Т А  Ш І</button>
+</div>
+<div id="admin-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal(false)">
+    <div class="modal-content">
+        <span class="close-modal" onclick="toggleModal(false)">&times;</span>
+        <h2>⚙️ Панель Керування Базою Даних</h2>
+        <p>Тут ви можете розширювати базу за допомогою ШІ або завантажувати готові файли контенту.</p>
+
+        <div class="admin-section">
+            <h3>1. Експорт даних</h3>
+            <p>Скачати поточну базу (разом із вашими доданими локальними питаннями) у файл:</p>
+            <button class="admin-btn download" onclick="exportToJSONFile()">💾 Скачати оновлений JSON</button>
+        </div>
+
+        <div class="admin-section">
+            <h3>2. Імпорт нових питань від ШІ</h3>
+            <p>Згенеруйте питання в ChatGPT та вставте отриманий масив JSON у поле нижче:</p>
+            <textarea id="json-input" placeholder='[{"id": "ai-001", "topic": "JS", ...}]'></textarea>
+            <button class="admin-btn" onclick="importAIQuestions()">➕ Додати питання в базу</button>
+            <button class="admin-btn danger" onclick="clearLocalQuestions()">🗑️ Стерти мої локальні питання</button>
+        </div>
+
+        <div class="admin-section">
+            <h3>📋 Промпт для ChatGPT (Скопіюйте це в ШІ)</h3>
+            <div class="prompt-box" id="prompt-text">Згенеруй 10 унікальних питань для IT співбесіди на тему [ВКАЖІТЬ ТЕМУ]. Поверни відповідь ВИКЛЮЧНО у форматі масиву JSON (без зайвих слів та оформлення markdown), використовуючи таку структуру:
+[
+  {
+    "id": "ai-generated-1",
+    "topic": "Назва теми",
+    "question_code": "КОД-1",
+    "difficulty": "Intermediate",
+    "question_text": "Текст питання?",
+    "options": [
+      { "option_id": "a", "text": "Варіант А" },
+      { "option_id": "b", "text": "Варіант Б" }
+    ],
+    "correct_answer_id": "a",
+    "explanation": "Детальне пояснення чому саме цей варіант правильний.",
+    "metadata": { "source": "ChatGPT", "tags": ["Тег1", "Тег2"] }
+  }
+]</div>
+        </div>
+    </div>
+</div>
 <script>
     let allQuestions = [];
     let filteredQuestions = [];
@@ -90,64 +150,70 @@
     let score = 0;
     let activeFilters = {};
 
-    // Завантаження файлу
+    // Завантажуємо локальні збережені питання користувача з пам'яті браузера
+    let localQuestions = JSON.parse(localStorage.getItem('my_custom_questions')) || [];
+
+    // Завантаження офіційного файлу з сервера
     fetch('Interview_query.json')
         .then(response => response.json())
-        .then(data => {
-            allQuestions = data;
+        .then(serverData => {
+            // Об'єднуємо серверні та локальні питання
+            allQuestions = [...serverData, ...localQuestions];
             filteredQuestions = [...allQuestions];
             renderQuestion();
         })
-        .catch(err => alert("Помилка завантаження JSON. Перевірте, чи файл у тій же папці."));
+        .catch(err => {
+            console.error("Помилка завантаження JSON сервера, працюємо на локальних:", err);
+            if (localQuestions.length > 0) {
+                allQuestions = localQuestions;
+                filteredQuestions = [...allQuestions];
+                renderQuestion();
+            } else {
+                alert("Помилка завантаження бази даних.");
+            }
+        });
 
     function renderQuestion() {
         if (filteredQuestions.length === 0) {
             document.getElementById('q-text').innerText = "Нічого не знайдено за вашими фільтрами";
+            document.getElementById('options-container').innerHTML = '';
+            document.getElementById('explanation-box').style.display = 'none';
+            document.getElementById('q-number').innerText = "0 / 0";
             return;
         }
 
         const q = filteredQuestions[currentIndex];
         document.getElementById('display-topic').innerText = q.topic;
         document.getElementById('display-diff').innerText = q.difficulty;
-        document.getElementById('q-code').innerText = `[${q.question_code}]`;
-        document.getElementById('q-text').innerText = q.question_text;
+        document.getElementById('q-code').innerText = `Question Code: [${q.question_code}]`;
+        document.getElementById('q-text').innerText = q.question_text.replaceAll('\\n', '\n');
         document.getElementById('q-source').innerText = `Джерело: ${q.metadata.source}`;
         document.getElementById('q-number').innerText = `${currentIndex + 1} / ${filteredQuestions.length}`;
 
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = '';
-        // document.getElementById('explanation-box').style.display = 'none';
 
-        // Перевіряємо, чи користувач вже відповідав на це питання раніше
         const hasAnswered = q.hasOwnProperty('userAnswer');
-
 
         q.options.forEach(opt => {
             const div = document.createElement('div');
             div.innerText = `${opt.option_id.toUpperCase()}) ${opt.text}`;
 
             if (hasAnswered) {
-                // Якщо вже відповіли — блокуємо кліки та підсвічуємо результати
                 div.className = 'option-item disabled-click';
-
-                // Правильний варіант завжди зелений
                 if (opt.option_id === q.correct_answer_id) {
                     div.classList.add('correct');
                 }
-                // Якщо користувач вибрав цей варіант і він був неправильним — робимо червоним
                 if (opt.option_id === q.userAnswer && q.userAnswer !== q.correct_answer_id) {
                     div.classList.add('wrong');
                 }
             } else {
-                // Питання нове — додаємо можливість кліку та ефекти наведення
                 div.className = 'option-item selectable';
                 div.onclick = () => checkAnswer(opt.option_id, q);
             }
-
             optionsContainer.appendChild(div);
         });
 
-        // Відображення пояснення, якщо на питання вже було дано відповідь
         if (hasAnswered) {
             document.getElementById('explanation-text').innerText = q.explanation;
             document.getElementById('explanation-box').style.display = 'block';
@@ -156,23 +222,26 @@
         }
 
         document.getElementById('prev-btn').disabled = currentIndex === 0;
+        document.getElementById('first-btn').disabled = document.getElementById('prev-btn').disabled
         document.getElementById('next-btn').disabled = currentIndex === filteredQuestions.length - 1;
+        document.getElementById('last-btn').disabled = document.getElementById('next-btn').disabled;
     }
 
     function checkAnswer(selectedOptionId, questionObj) {
-        // Зберігаємо вибір користувача прямо в об'єкт питання
         questionObj.userAnswer = selectedOptionId;
-
         if (selectedOptionId === questionObj.correct_answer_id) {
             score++;
             document.getElementById('score').innerText = score;
         }
-
-        // Перемальовуємо поточне питання, щоб застосувати підсвічування та заблокувати кліки
         renderQuestion();
     }
 
-    function changeQuestion(step) {
+    function changeQuestion(step, is_first) {
+        if (is_first === true) {
+            currentIndex = 0
+        } else {
+            if (step === 0) currentIndex = filteredQuestions.length - 1
+        }
         currentIndex += step;
         renderQuestion();
     }
@@ -185,9 +254,8 @@
                 const filterVal = activeFilters[key];
                 if (!filterVal) return true;
 
-                // Спеціальна обробка вкладених полів
-                if (key === 'source') return q.metadata.source.toLowerCase().includes(filterVal);
-                if (key === 'tags') return q.metadata.tags.some(t => t.toLowerCase().includes(filterVal));
+                if (key === 'source') return q.metadata && q.metadata.source && q.metadata.source.toLowerCase().includes(filterVal);
+                if (key === 'tags') return q.metadata && q.metadata.tags && q.metadata.tags.some(t => t.toLowerCase().includes(filterVal));
                 if (key === 'options') return q.options.some(o => o.text.toLowerCase().includes(filterVal));
 
                 return String(q[key]).toLowerCase().includes(filterVal);
@@ -197,6 +265,92 @@
         currentIndex = 0;
         renderQuestion();
     }
+
+    // Логіка Модального Вікна (Адмінки)
+    function toggleModal(show) {
+        document.getElementById('admin-modal').style.display = show ? 'flex' : 'none';
+    }
+
+    // Експорт повної бази у JSON файл
+    function exportToJSONFile() {
+        // Очищаємо відповіді користувача перед експортом, щоб зберегти чисту базу
+        const cleanQuestions = allQuestions.map(({userAnswer, ...rest}) => rest);
+
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(cleanQuestions, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", "Interview_query_updated.json");
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+    }
+
+    // Імпорт питань з ChatGPT
+    function importAIQuestions() {
+        const input = document.getElementById('json-input').value.trim();
+        if (!input) return alert("Поле порожнє!");
+
+        try {
+            const parsed = JSON.parse(input);
+            const newQuestions = Array.isArray(parsed) ? parsed : [parsed];
+
+            // Зберігаємо в LocalStorage
+            localQuestions = [...localQuestions, ...newQuestions];
+            localStorage.setItem('my_custom_questions', JSON.stringify(localQuestions));
+
+            // Оновлюємо масив програми
+            allQuestions = [...allQuestions, ...newQuestions];
+            filteredQuestions = [...allQuestions];
+
+            document.getElementById('json-input').value = '';
+            toggleModal(false);
+            currentIndex = allQuestions.length - newQuestions.length; // Перемикаємо на перше додане питання
+            renderQuestion();
+            alert(`Успішно додано питань: ${newQuestions.length}! Вони збережені у вашому браузері.`);
+        } catch (e) {
+            alert("Помилка валідації JSON. Перевірте формат тексту, який видав ШІ.");
+        }
+    }
+
+    // Очистити локальну пам'ять від доданих питань
+    function clearLocalQuestions() {
+        if (confirm("Ви дійсно хочете видалити всі додані вами питання? Офіційна база сайту не постраждає.")) {
+            localStorage.removeItem('my_custom_questions');
+            localQuestions = [];
+            // Перезавантажуємо тільки серверні питання
+            fetch('Interview_query.json')
+                .then(r => r.json())
+                .then(data => {
+                    allQuestions = data;
+                    filteredQuestions = [...allQuestions];
+                    currentIndex = 0;
+                    renderQuestion();
+                    toggleModal(false);
+                    alert("Локальні питання видалено.");
+                });
+        }
+    }
+
+    // Керування тестом за допомогою клавіатури (стрілки Вліво / Вправо)
+    document.addEventListener('keydown', function(event) {
+    // Якщо у користувача зараз відкрита адмінка (модальне вікно) і він пише в textarea,
+    // ми вимикаємо перемикання стрілками, щоб не збивати введення тексту.
+    if (document.getElementById('admin-modal').style.display === 'flex') {
+        return;
+    }
+
+    if (event.key === 'ArrowLeft') {
+        // Натиснули стрілку "Вліво" — переходимо назад (якщо кнопка не заблокована)
+        if (!document.getElementById('prev-btn').disabled) {
+            changeQuestion(-1);
+        }
+    } else if (event.key === 'ArrowRight') {
+        // Натиснули стрілку "Вправо" — переходимо вперед (якщо кнопка не заблокована)
+        if (!document.getElementById('next-btn').disabled) {
+            changeQuestion(1);
+        }
+    }
+});
 </script>
 
 </body>
