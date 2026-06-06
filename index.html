@@ -170,7 +170,9 @@
     let timerInterval;
     const TOTAL_TIME = 2 * 60 * 60; // 2 години у секундах (7200 секунд)
     // Зчитуємо залишок часу з пам'яті, якщо його немає — беремо 2 години
-    let timeLeft = parseInt(localStorage.getItem('test_time_left')) ?? TOTAL_TIME;
+    // НАДІЙНИЙ ВАРІАНТ: якщо з пам'яті повернувся NaN або 0, автоматично беремо TOTAL_TIME
+    let savedTime = parseInt(localStorage.getItem('test_time_left'));
+    let timeLeft = (!isNaN(savedTime) && savedTime > 0) ? savedTime : TOTAL_TIME;
 
     // Завантажуємо локальні збережені питання користувача з пам'яті браузера
     let localQuestions = JSON.parse(localStorage.getItem('my_custom_questions')) || [];
@@ -200,7 +202,8 @@
             filteredQuestions = [...allQuestions];
             // ВІДНОВЛЕННЯ ПОЗИЦІЇ ЗАПИТАННЯ:
             // Зчитуємо збережений індекс. Якщо його немає — починаємо з 0 (перше питання)
-            let savedIndex = parseInt(localStorage.getItem('test_current_index')) || 0;
+            let savedIndex = parseInt(localStorage.getItem('test_current_index'));
+            currentIndex = !isNaN(savedIndex) ? savedIndex : 0;
 
             // Захист від збоїв: якщо база питань зменшилась, а збережений індекс більший за кількість питань
             if (savedIndex >= filteredQuestions.length) {
