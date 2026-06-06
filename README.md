@@ -1,50 +1,54 @@
 # 🚀 IT Interview Trainer (Тренажер для Співбесід)
 
-An interactive web application for preparing for technical interviews in IT disciplines. The application is completely static, works without a backend, and uses a structured database of questions in JSON format.
-(Інтерактивний вебдодаток для підготовки до технічних співбесід з IT-дисциплін. Додаток є повністю статичним, працює без бекенду та використовує структуровану базу запитань у форматі JSON.)
+An interactive web application for preparing for technical interviews in IT disciplines. The application is completely static, works without a backend, uses a structured database of questions in JSON format, and intelligently saves state using LocalStorage.
+(Інтерактивний вебдодаток для підготовки до технічних співбесід з IT-дисциплін. Додаток є повністю статичним, працює без бекенду, використовує структуровану базу запитань у форматі JSON та розумно зберігає свій стан через LocalStorage.)
 
 🔗 **[ЖИВИЙ ДЕМО-САЙТ НА GITHUB PAGES](https://roadway000.github.io/Interview_query/)**
 
 ---
 
 ## 🌟 Features (Ключові фічі)
-* **Saving the state of answers:** When switching between questions ("Back" / "Forward"), the application remembers your choice, blocks repeated clicks to avoid overcharging, and highlights the results.
-* **Interactive feedback:** Instant semi-transparent highlighting of answers (green - correct, red - error) and automatic display of a detailed explanation next to the question.
-* **Flexible filtering system:** Search by 8 different parameters simultaneously (topic, difficulty, question code, text, options, tags, source, etc.) thanks to dynamic `oninput` filters on the client side.
-* **Fixed UI:** The navigation bar is fixed at the top, which prevents the interface from "jumping" when changing the length of the question text.
-(* **Збереження стану відповідей:** При переході між запитаннями («Назад» / «Вперед») додаток пам'ятає ваш вибір, блокує повторні кліки, щоб не накручувати рахунок, і підсвічує результати.
-* **Інтерактивний фідбек:** Миттєве напівпрозоре підсвічування відповідей (зелений — правильно, червоний — помилка) та автоматичне відображення детального пояснення (`explanation`) поруч із питанням.
-* **Гнучка система фільтрації:** Пошук за 8 різними параметрами одночасно (тема, складність, код питання, текст, варіанти, теги, джерело тощо) завдяки динамічним `oninput` фільтрам на клієнтській стороні.
-* **Фіксований UI:** Панель навігації закріплена у верхній частині, що запобігає «стрибанню» інтерфейсу під час зміни довжини тексту запитань.)
+
+* **💾 Full Progress Retention (Збереження прогресу тесту):** Application automatically saves all your answers, score, and the exact question you stopped on inside browser's `LocalStorage`. You can close your phone or PC browser, return days later, and continue exactly where you left off.
+  (* **Повне збереження прогресу:** Додаток автоматично зберігає всі ваші відповіді, поточний рахунок та точний номер питання, на якому ви зупинилися, в `LocalStorage` браузера. Можна закрити вкладку на телефоні чи ПК, повернутися через кілька днів і продовжити з того самого місця.)
+* **⏱️ Exam Countdown Timer (Таймер зворотного відліку):** Implements a realistic 2-hour exam simulation. The timer ticks automatically when the window is active, freezes safely when the tab is closed, and resumes upon return.
+  (* **Таймер реального іспиту:** Вбудовано зворотний відлік на 2 години для симуляції справжнього тестування. Таймер працює, поки вкладка активна, «заморожується» при закритті сторінки та продовжується при повторному візиті.)
+* **⚙️ Pop-up Admin & AI Panel (Прихована Адмінка та ШІ):** A clean, modal-driven control dashboard that doesn't distract during testing. It includes a ready-to-use prompt template for ChatGPT to generate compatible questions and lets you import them instantly on the fly.
+  (* **Спливаюча Адмін-панель та ШІ:** Елегантне модальне вікно для керування контентом, яке не відволікає під час тесту. Містить готовий промпт-шаблон для ChatGPT для генерації сумісних питань та дозволяє миттєво імпортувати їх "на льоту".)
+* **🔄 Custom Confirmation Dialogs (Витончені діалоги підтвердження):** Replaced default, scary browser alerts with highly stylized modal dialogs that dynamically warning users about resetting their specific score before clearing history.
+  (* **Сучасні вікна підтвердження:** Стандартні застарілі сповіщення браузера замінено на красиві модальні вікна у стилі додатка, які динамічно попереджають користувача про втрату його конкретної кількості балів перед скиданням тесту.)
+* **⌨️ Keyboard Navigation (Керування з клавіатури):** Supports lightning-fast switching between questions using `ArrowLeft` and `ArrowRight` keys, which automatically disables when typing inside the Admin panel.
+  (* **Навігація клавіатурою:** Можливість миттєво гортати питання кнопками «Вліво» та «Вправо» на клавіатурі. Керування автоматично блокується, коли ви вводите текст в адмінці.)
+* **🔎 Advanced Multi-Filtering (Гнучка система фільтрації):** Search by 8 parameters simultaneously (topic, difficulty, code, question text, options, explanation, source, metadata tags) with instant client-side rendering.
+  (* **Гнучка фільтрація:** Одночасний пошук за 8 параметрами завдяки динамічним `oninput` фільтрам на клієнтській стороні.)
 
 ---
 
 ## 🛠️ Tech Stack (Стек технологій)
-* **Frontend:** HTML5, CSS3 (CSS Variables, CSS Grid, Flexbox), JavaScript (Vanilla ES6)
-* **Data Source:** Local JSON file (`Interview_query.json`) with detailed meta information for each question
-* (Локальний JSON-файл (`Interview_query.json`) з детальною мета-інформацією для кожного запитання)
-* **Хостинг:** GitHub Pages automatic deployment from the `main` branch
-* (автоматичний деплой з гілки `main`)
+* **Frontend:** HTML5, CSS3 (CSS Variables, Flexbox, CSS Grid), Vanilla JavaScript (ES6, LocalStorage API, Keyboard Events)
+* **Data Source:** Local JSON database (`Interview_query.json`) + dynamic LocalStorage extension layer for custom AI content.
+* **Hosting:** GitHub Pages with automatic deployment from the `main` branch.
 * **IDE:** PyCharm 2025.2.4
 
 ---
 
 ## 📂 JSON Schema (Структура даних запитання)
-Each question in the `Interview_query.json` file has a strongly typed structure:
-(Кожне запитання у файлі `Interview_query.json` має строгу типізовану структуру:)
+Each question in the `Interview_query.json` file (and AI generated arrays) must adhere to this typed structure:
+(Кожне запитання у файлі має строгу типізовану структуру:)
+
 ```json
 {
   "id": "sql-fin-021",
   "topic": "SQL",
   "question_code": "SQL-DWH-16",
   "difficulty": "Intermediate",
-  "question_text": "Яка схема даних у сховищах (Data Warehouse)...?",
+  "question_text": "What is the primary data schema in a classic Data Warehouse...?",
   "options": [
-    { "option_id": "a", "text": "Сніжинка (Snowflake)" },
-    { "option_id": "b", "text": "Зірка (Star Schema)" }
+    { "option_id": "a", "text": "Snowflake Schema" },
+    { "option_id": "b", "text": "Star Schema" }
   ],
   "correct_answer_id": "b",
-  "explanation": "Схема 'Зірка' є найпростішою для розуміння...",
+  "explanation": "Star Schema is the simplest and most efficient layout for DWH querying...",
   "metadata": {
     "source": "Data Modeling Standards",
     "tags": ["SQL", "DWH", "Architecture"]
