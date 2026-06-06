@@ -338,7 +338,7 @@
     // Функція очищення історії через красиве модальне вікно
     function resetTestProgress() {
         // 1. Показуємо наше власне модальне вікно замість стандартного confirm
-        switchConfirmationDialog(true, "Ви набрали балів: ${score}. Дійсно хочете скинути весь прогрес та обнулити рахунок?");
+        switchConfirmationDialog(true, `Ви набрали балів: ${score}. Дійсно хочете скинути весь прогрес та обнулити рахунок?`);
 
         // 2. Навішуємо дію на кнопку "Так, скинути"
         document.getElementById('confirm-yes-btn').onclick = function() {
