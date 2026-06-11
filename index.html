@@ -493,6 +493,11 @@
         // Міняємо текст на кнопці підтвердження під цей контекст
         document.getElementById('confirm-yes-btn').innerText = "Так, видалити";
 
+        // Автоматично визначаємо повний шлях до файлу на основі поточної сторінки
+        const jsonUrl = window.location.pathname.endsWith('/')
+            ? window.location.pathname + 'Interview_query.json'
+            : window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/Interview_query.json';
+
         document.getElementById('confirm-yes-btn').onclick = function() {
             switchConfirmationDialog(false);
             localStorage.removeItem('my_custom_questions');
