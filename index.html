@@ -183,7 +183,7 @@
     // Додаємо мітку часу, щоб обійти застряглий кеш GitHub CDN
     const cacheBuster = '?v=' + new Date().getTime();
     // Завантаження офіційного файлу з сервера
-    fetch('./Interview_query.json' + cacheBuster)
+    fetch('./interview-query.json' + cacheBuster)
         .then(response => {
             if (!response.ok) throw new Error("Файл не знайдено на сервері");
             return response.json();
@@ -230,8 +230,8 @@
             } else {
                 // Виводимо більш детальну підказку для розробника
                 document.getElementById('q-text').innerText =
-                    "Помилка завантаження бази даних. Перевірте, чи файл Interview_query.json лежить у корені проєкту та чи збігається регістр букв у назві.";
-                alert("Помилка завантаження Interview_query.json");
+                    "Помилка завантаження бази даних. Перевірте, чи файл interview-query.json лежить у корені проєкту та чи збігається регістр букв у назві.";
+                alert("Помилка завантаження interview-query.json");
             }
         });
 
@@ -497,7 +497,7 @@
 
         const cacheBuster = '?v=' + new Date().getTime();
 
-            fetch('./Interview_query.json' + cacheBuster)
+            fetch('./interview-query.json' + cacheBuster)
                 .then(r => r.json())
                 .then(data => {
                     allQuestions = data;
