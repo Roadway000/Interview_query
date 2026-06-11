@@ -1181,7 +1181,7 @@
     "explanation": "Замикання дозволяють 'прив'язувати' дані до функції, не використовуючи класи.",
     "metadata": { "source": "Functional Programming", "tags": ["Python", "Closures"] }
   },
-{
+  {
     "id": "del-fin-022",
     "topic": "Delphi / VCL",
     "question_code": "DEL-ARC-16",
