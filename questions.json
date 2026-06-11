@@ -1004,5 +1004,389 @@
     "correct_answer_id": "b",
     "explanation": "Такі тригери часто використовуються для того, щоб зробити складні View доступними для оновлення (Updateable Views).",
     "metadata": { "source": "Database Logic", "tags": ["SQL", "Triggers"] }
+  },
+  {
+    "id": "py-fin-020",
+    "topic": "Python 3",
+    "question_code": "PY3-FAST-17",
+    "difficulty": "Intermediate",
+    "question_text": "Яка бібліотека Python є лідером для створення асинхронних API завдяки використанню Pydantic та анотацій типів?",
+    "options": [
+      { "option_id": "a", "text": "Django" },
+      { "option_id": "b", "text": "Flask" },
+      { "option_id": "c", "text": "FastAPI" },
+      { "option_id": "d", "text": "Tornado" }
+    ],
+    "correct_answer_id": "c",
+    "explanation": "FastAPI автоматично генерує Swagger-документацію та забезпечує високу швидкість роботи за рахунок асинхронності.",
+    "metadata": { "source": "Modern Web Frameworks", "tags": ["Python", "Web", "FastAPI"] }
+  },
+  {
+    "id": "py-fin-021",
+    "topic": "Python 3",
+    "question_code": "PY3-DYN-18",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Monkey Patching' у Python?",
+    "options": [
+      { "option_id": "a", "text": "Спосіб оптимізації коду для мобільних пристроїв." },
+      { "option_id": "b", "text": "Динамічна заміна атрибутів або методів модуля чи класу під час виконання (runtime)." },
+      { "option_id": "c", "text": "Автоматичне тестування інтерфейсу користувача." },
+      { "option_id": "d", "text": "Назва офіційного оновлення Python 3.12." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Це потужний, але ризикований прийом, що часто використовується в тестах для підміни реальних функцій об'єктами-заглушками (mocks).",
+    "metadata": { "source": "Python Advanced Topics", "tags": ["Python", "Dynamic Architecture"] }
+  },
+  {
+    "id": "py-fin-022",
+    "topic": "Python 3",
+    "question_code": "PY3-GIL-19",
+    "difficulty": "Hard",
+    "question_text": "Яка зміна в Python 3.13 стосується GIL (Global Interpreter Lock)?",
+    "options": [
+      { "option_id": "a", "text": "GIL було повністю видалено з усіх версій." },
+      { "option_id": "b", "text": "Додано експериментальну підтримку запуску без GIL (free-threaded mode)." },
+      { "option_id": "c", "text": "GIL було замінено на Garbage Collector від Java." },
+      { "option_id": "d", "text": "GIL тепер працює лише для Linux." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Це важливий крок до справжньої багатопоточності, що дозволяє виконувати Python-код паралельно на багатьох ядрах без блокувань.",
+    "metadata": { "source": "Python 3.13 Release Notes", "tags": ["Python", "GIL", "Multithreading"] }
+  },
+  {
+    "id": "py-fin-023",
+    "topic": "Python 3",
+    "question_code": "PY3-GEN-20",
+    "difficulty": "Intermediate",
+    "question_text": "Для чого використовується конструкція 'yield from'?",
+    "options": [
+      { "option_id": "a", "text": "Для миттєвого завершення генератора." },
+      { "option_id": "b", "text": "Для делегування виконання іншому генератору або ітерованому об'єкту." },
+      { "option_id": "c", "text": "Для отримання даних з віддаленого сервера." },
+      { "option_id": "d", "text": "Це застарілий синтаксис, що більше не використовується." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "yield from дозволяє створювати ланцюжки генераторів, передаючи значення з вкладеного ітератора назовні.",
+    "metadata": { "source": "Python Core Design", "tags": ["Python", "Generators"] }
+  },
+  {
+    "id": "py-fin-024",
+    "topic": "Python 3",
+    "question_code": "PY3-SCR-21",
+    "difficulty": "Easy",
+    "question_text": "Яка різниця між операторами 'is' та '=='?",
+    "options": [
+      { "option_id": "a", "text": "Різниці немає, це синоніми." },
+      { "option_id": "b", "text": "'==' перевіряє рівність значень, 'is' перевіряє ідентичність об'єктів у пам'яті." },
+      { "option_id": "c", "text": "'is' швидше за '==' у всіх випадках." },
+      { "option_id": "d", "text": "'==' працює лише для числових типів." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Наприклад, два списки з однаковими даними будуть рівні через '==', але будуть різними об'єктами для 'is'.",
+    "metadata": { "source": "Python Basics", "tags": ["Python", "Logic"] }
+  },
+  {
+    "id": "py-fin-025",
+    "topic": "Python 3",
+    "question_code": "PY3-PIP-22",
+    "difficulty": "Intermediate",
+    "question_text": "Який файл використовується в сучасних проектах для керування залежностями згідно з PEP 518?",
+    "options": [
+      { "option_id": "a", "text": "requirements.txt" },
+      { "option_id": "b", "text": "setup.py" },
+      { "option_id": "c", "text": "pyproject.toml" },
+      { "option_id": "d", "text": "config.json" }
+    ],
+    "correct_answer_id": "c",
+    "explanation": "pyproject.toml — це новий стандарт для пакування та конфігурації інструментів (Poetry, Black, Ruff тощо).",
+    "metadata": { "source": "Python Packaging", "tags": ["Python", "Packaging", "Pip"] }
+  },
+  {
+    "id": "py-fin-026",
+    "topic": "Python 3",
+    "question_code": "PY3-WAL-23",
+    "difficulty": "Intermediate",
+    "question_text": "Що таке 'Walrus operator' (:=) і в якій версії він з'явився?",
+    "options": [
+      { "option_id": "a", "text": "Оператор присвоєння виразу (Python 3.8)." },
+      { "option_id": "b", "text": "Оператор для роботи з великими даними (Python 3.9)." },
+      { "option_id": "c", "text": "Символ для завершення циклу (Python 3.10)." },
+      { "option_id": "d", "text": "Оператор для об'єднання списків (Python 3.5)." }
+    ],
+    "correct_answer_id": "a",
+    "explanation": "Він дозволяє присвоювати значення змінній прямо всередині виразу (наприклад, в умові if або while).",
+    "metadata": { "source": "Python 3.8 Features", "tags": ["Python", "Operators"] }
+  },
+  {
+    "id": "py-fin-027",
+    "topic": "Python 3",
+    "question_code": "PY3-DOCK-24",
+    "difficulty": "Intermediate",
+    "question_text": "Для чого використовується функція super() у конструкторі класу?",
+    "options": [
+      { "option_id": "a", "text": "Для створення статичного методу." },
+      { "option_id": "b", "text": "Для виклику методів батьківського класу без явного вказання його імені." },
+      { "option_id": "c", "text": "Для прискорення створення екземпляра класу." },
+      { "option_id": "d", "text": "Для видалення об'єкта з пам'яті." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "super() дозволяє коректно працювати з множинним успадкуванням, слідуючи порядку MRO.",
+    "metadata": { "source": "Python OOP", "tags": ["Python", "Inheritance"] }
+  },
+  {
+    "id": "py-fin-028",
+    "topic": "Python 3",
+    "question_code": "PY3-LIST-25",
+    "difficulty": "Hard",
+    "question_text": "Який тип даних у Python реалізовано як двозв'язний список для швидких маніпуляцій з обох кінців?",
+    "options": [
+      { "option_id": "a", "text": "list" },
+      { "option_id": "b", "text": "collections.deque" },
+      { "option_id": "c", "text": "set" },
+      { "option_id": "d", "text": "array.array" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "На відміну від звичайного списку, видалення першого елемента в deque займає O(1) часу.",
+    "metadata": { "source": "Python Collections Library", "tags": ["Python", "Data Structures"] }
+  },
+  {
+    "id": "py-fin-029",
+    "topic": "Python 3",
+    "question_code": "PY3-VAR-26",
+    "difficulty": "Intermediate",
+    "question_text": "Що означає префікс 'self' у методах класу?",
+    "options": [
+      { "option_id": "a", "text": "Посилання на сам клас." },
+      { "option_id": "b", "text": "Посилання на поточний екземпляр класу (об'єкт)." },
+      { "option_id": "c", "text": "Спеціальна змінна для глобального доступу." },
+      { "option_id": "d", "text": "Це необов'язковий декоратор." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Через self методи отримують доступ до атрибутів і стану конкретного об'єкта.",
+    "metadata": { "source": "Python Basics", "tags": ["Python", "OOP"] }
+  },
+  {
+    "id": "py-fin-030",
+    "topic": "Python 3",
+    "question_code": "PY3-CLOS-27",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Closure' (замикання)?",
+    "options": [
+      { "option_id": "a", "text": "Функція, що викликає сама себе (рекурсія)." },
+      { "option_id": "b", "text": "Вкладена функція, яка запам'ятовує змінні зі свого локального оточення навіть після завершення зовнішньої функції." },
+      { "option_id": "c", "text": "Спосіб закриття з'єднань з базою даних." },
+      { "option_id": "d", "text": "Механізм автоматичного видалення об'єктів." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Замикання дозволяють 'прив'язувати' дані до функції, не використовуючи класи.",
+    "metadata": { "source": "Functional Programming", "tags": ["Python", "Closures"] }
+  },
+{
+    "id": "del-fin-022",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-ARC-16",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Interface-based programming' і чому воно критичне для Unit Testing?",
+    "options": [
+      { "option_id": "a", "text": "Використання лише візуальних компонентів." },
+      { "option_id": "b", "text": "Використання інтерфейсів для зменшення зв'язності (decoupling), що дозволяє підміняти реальні класи на моки." },
+      { "option_id": "c", "text": "Програмування інтерфейсу користувача в коді." },
+      { "option_id": "d", "text": "Підключення до Windows API." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Інтерфейси дозволяють абстрагуватися від реалізації, що полегшує тестування окремих модулів незалежно один від одного.",
+    "metadata": { "source": "Delphi Software Architecture", "tags": ["Delphi", "SOLID", "Testing"] }
+  },
+  {
+    "id": "del-fin-023",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-FMX-17",
+    "difficulty": "Intermediate",
+    "question_text": "Яка ключова відмінність FireMonkey (FMX) від VCL?",
+    "options": [
+      { "option_id": "a", "text": "VCL швидший за FMX на всіх платформах." },
+      { "option_id": "b", "text": "VCL базується на Windows API, а FMX — кросплатформна бібліотека з використанням GPU-малювання." },
+      { "option_id": "c", "text": "FMX працює лише на мобільних пристроях." },
+      { "option_id": "d", "text": "FMX — це заміна для SQL у Delphi." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "FMX малює кожен піксель самостійно через DirectX або OpenGL, що дозволяє працювати на macOS, Android та iOS.",
+    "metadata": { "source": "Embarcadero Frameworks", "tags": ["Delphi", "FMX", "VCL"] }
+  },
+  {
+    "id": "del-fin-024",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-DPI-18",
+    "difficulty": "Intermediate",
+    "question_text": "Як сучасні версії Delphi (10.3+) вирішують проблему 'мильного' інтерфейсу на 4K моніторах?",
+    "options": [
+      { "option_id": "a", "text": "Ніяк, Delphi не підтримує 4K." },
+      { "option_id": "b", "text": "Через підтримку 'Per-Monitor V2 High DPI' та компонент TVirtualImageList." },
+      { "option_id": "c", "text": "Збільшенням розміру всіх кнопок вручну." },
+      { "option_id": "d", "text": "Шляхом відмови від стандартних іконок." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Нові компоненти VCL автоматично масштабуються при переміщенні форми між моніторами з різним DPI.",
+    "metadata": { "source": "Modern VCL Features", "tags": ["Delphi", "High DPI", "UI"] }
+  },
+  {
+    "id": "del-fin-025",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-DYN-19",
+    "difficulty": "Hard",
+    "question_text": "Що таке 'Method Reference' (посилання на метод) у Delphi?",
+    "options": [
+      { "option_id": "a", "text": "Звичайна адреса функції в пам'яті." },
+      { "option_id": "b", "text": "Тип, що може зберігати посилання на метод об'єкта, статичний або анонімний метод." },
+      { "option_id": "c", "text": "Спосіб виклику процедур з DLL." },
+      { "option_id": "d", "text": "Застаріла технологія Delphi 7." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Method references є гнучкішими за звичайні 'procedure of object' і широко використовуються в анонімних методах.",
+    "metadata": { "source": "Modern Pascal Syntax", "tags": ["Delphi", "Metaprogramming"] }
+  },
+  {
+    "id": "del-fin-026",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-SER-20",
+    "difficulty": "Intermediate",
+    "question_text": "Який клас у сучасній Delphi використовується для автоматичної серіалізації об'єктів у JSON?",
+    "options": [
+      { "option_id": "a", "text": "TJsonObject.ToString" },
+      { "option_id": "b", "text": "TJson.ObjectToJsonString (з модуля REST.Json)." },
+      { "option_id": "c", "text": "TSuperObject." },
+      { "option_id": "d", "text": "TRegistry." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "TJson автоматично обробляє публічні властивості об'єкта, перетворюючи їх на JSON-структуру.",
+    "metadata": { "source": "Delphi JSON Library", "tags": ["Delphi", "JSON", "Serialization"] }
+  },
+  {
+    "id": "del-fin-027",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-PAR-21",
+    "difficulty": "Hard",
+    "question_text": "Для чого призначений метод TParallel.For з бібліотеки PPL?",
+    "options": [
+      { "option_id": "a", "text": "Для запуску циклу в окремому процесі Windows." },
+      { "option_id": "b", "text": "Для автоматичного розпаралелювання ітерацій циклу між усіма ядрами процесора." },
+      { "option_id": "c", "text": "Для паралельного запису в базу даних." },
+      { "option_id": "d", "text": "Це просто синонім для звичайного циклу for." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "PPL дозволяє значно прискорити обчислення, ефективно використовуючи потужність багатоядерних систем.",
+    "metadata": { "source": "Parallel Programming Library", "tags": ["Delphi", "Concurrency"] }
+  },
+  {
+    "id": "del-fin-028",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-VCL-22",
+    "difficulty": "Easy",
+    "question_text": "Який метод рекомендується для безпечного звільнення динамічно створеної форми?",
+    "options": [
+      { "option_id": "a", "text": "Form.Free" },
+      { "option_id": "b", "text": "Form.Release" },
+      { "option_id": "c", "text": "Form.Destroy" },
+      { "option_id": "d", "text": "Form.Close" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Release гарантує, що форма буде знищена лише після того, як всі повідомлення з її черги будуть оброблені.",
+    "metadata": { "source": "VCL Memory Management", "tags": ["Delphi", "UI Best Practices"] }
+  },
+  {
+    "id": "del-fin-029",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-VAR-23",
+    "difficulty": "Intermediate",
+    "question_text": "Що таке 'Inline Variable Declaration' (Delphi 10.3+)?",
+    "options": [
+      { "option_id": "a", "text": "Оголошення змінної в окремому unit-і." },
+      { "option_id": "b", "text": "Можливість оголошувати змінні прямо всередині блоку begin...end." },
+      { "option_id": "c", "text": "Спосіб оголошення глобальних констант." },
+      { "option_id": "d", "text": "Змінна, що не потребує пам'яті." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Це дозволяє звузити область видимості змінної та автоматично виводити її тип (type inference).",
+    "metadata": { "source": "Modern Pascal Updates", "tags": ["Delphi", "Syntax"] }
+  },
+  {
+    "id": "del-fin-030",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-INT-24",
+    "difficulty": "Hard",
+    "question_text": "У чому небезпека змішування звичайних вказівок на об'єкти з інтерфейсними посиланнями (mixing)?",
+    "options": [
+      { "option_id": "a", "text": "Це призводить до сповільнення процесора." },
+      { "option_id": "b", "text": "Ризик передчасного видалення об'єкта через лічильник посилань (ARC)." },
+      { "option_id": "c", "text": "Це заборонено компілятором." },
+      { "option_id": "d", "text": "Втрачається доступ до властивостей об'єкта." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "Коли лічильник посилань інтерфейсу стає 0, об'єкт видаляється, навіть якщо звичайна вказівка на нього ще використовується.",
+    "metadata": { "source": "Delphi Memory Pitfalls", "tags": ["Delphi", "Interfaces", "ARC"] }
+  },
+  {
+    "id": "del-fin-031",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-DB-25",
+    "difficulty": "Intermediate",
+    "question_text": "Який сучасний рушій доступу до даних є стандартом у Delphi сьогодні?",
+    "options": [
+      { "option_id": "a", "text": "BDE" },
+      { "option_id": "b", "text": "FireDAC" },
+      { "option_id": "c", "text": "dbExpress" },
+      { "option_id": "d", "text": "ADO (dbGo)" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "FireDAC забезпечує швидкий, кросплатформний та уніфікований доступ до майже всіх популярних СУБД.",
+    "metadata": { "source": "Embarcadero Database Guide", "tags": ["Delphi", "FireDAC", "Database"] }
+  },
+  {
+    "id": "del-fin-032",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-OOP-26",
+    "difficulty": "Intermediate",
+    "question_text": "Що означає специфікатор 'strict private'?",
+    "options": [
+      { "option_id": "a", "text": "Доступ лише для поточного модуля (unit)." },
+      { "option_id": "b", "text": "Доступ виключно для методів поточного класу (навіть у межах одного unit-а)." },
+      { "option_id": "c", "text": "Доступ лише для читання." },
+      { "option_id": "d", "text": "Приватний доступ, що діє лише в режимі Debug." }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "На відміну від звичайного private, strict private забороняє доступ іншим класам, навіть якщо вони описані в тому самому файлі.",
+    "metadata": { "source": "Delphi Encapsulation", "tags": ["Delphi", "OOP"] }
+  },
+  {
+    "id": "del-fin-033",
+    "topic": "Delphi / VCL",
+    "question_code": "DEL-GEN-27",
+    "difficulty": "Hard",
+    "question_text": "Яка генерична колекція найкраще підходить для швидкого пошуку об'єкта за унікальним рядковим ключем?",
+    "options": [
+      { "option_id": "a", "text": "TList<T>" },
+      { "option_id": "b", "text": "TDictionary<string, T>" },
+      { "option_id": "c", "text": "TStack<T>" },
+      { "option_id": "d", "text": "TArray<T>" }
+    ],
+    "correct_answer_id": "b",
+    "explanation": "TDictionary використовує хешування, що дозволяє отримувати доступ до даних майже миттєво (O(1)).",
+    "metadata": { "source": "Generics Collections Library", "tags": ["Delphi", "Generics", "Optimization"] }
+  },
+  {
+    "id": "py-generated-0061",
+    "topic": "Error Handling Quiz",
+    "question_code": "PY3-61",
+    "difficulty": "Intermediate",
+    "question_text": "What will be the output of this code?\\ntry:    print(22 / 0)\\nexcept ZeroDivisionError:\\n    print('You cannot divide by zero!')",
+    "options": [
+      { "option_id": "a", "text": "0" },
+      { "option_id": "b", "text": "22" },
+      { "option_id": "c", "text": "You can't divide by zero!" },
+      { "option_id": "d", "text": "10" }
+    ],
+    "correct_answer_id": "c",
+    "explanation": "Ділення на нуль викликає помилку ZeroDivisionError, яку успішно перехоплює та обробляє блок except.",
+    "metadata": { "source": "ChatGPT", "tags": ["Exceptions", "Error Handling"] }
   }
 ]
