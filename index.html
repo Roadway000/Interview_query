@@ -180,8 +180,10 @@
     // Завантажуємо локальні збережені питання користувача з пам'яті браузера
     let localQuestions = JSON.parse(localStorage.getItem('my_custom_questions')) || [];
 
+    // Додаємо мітку часу, щоб обійти застряглий кеш GitHub CDN
+    const cacheBuster = '?v=' + new Date().getTime();
     // Завантаження офіційного файлу з сервера
-    fetch('./Interview_query.json')
+    fetch('./Interview_query.json' + cacheBuster)
         .then(response => {
             if (!response.ok) throw new Error("Файл не знайдено на сервері");
             return response.json();
@@ -493,7 +495,9 @@
             localStorage.removeItem('my_custom_questions');
             localQuestions = [];
 
-            fetch('./Interview_query.json')
+        const cacheBuster = '?v=' + new Date().getTime();
+
+            fetch('./Interview_query.json' + cacheBuster)
                 .then(r => r.json())
                 .then(data => {
                     allQuestions = data;
