@@ -180,8 +180,13 @@
     // Завантажуємо локальні збережені питання користувача з пам'яті браузера
     let localQuestions = JSON.parse(localStorage.getItem('my_custom_questions')) || [];
 
+    // Автоматично визначаємо повний шлях до файлу на основі поточної сторінки
+    const jsonUrl = window.location.pathname.endsWith('/')
+        ? window.location.pathname + 'Interview_query.json'
+        : window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/Interview_query.json';
+
     // Завантаження офіційного файлу з сервера
-    fetch('Interview_query.json')
+    fetch(jsonUrl)
         .then(response => {
             if (!response.ok) throw new Error("Файл не знайдено на сервері");
             return response.json();
@@ -493,7 +498,7 @@
             localStorage.removeItem('my_custom_questions');
             localQuestions = [];
 
-            fetch('Interview_query.json')
+            fetch(jsonUrl)
                 .then(r => r.json())
                 .then(data => {
                     allQuestions = data;
