@@ -54,8 +54,10 @@
         .close-modal:hover { color: #333; }
 
         .admin-section { border-top: 1px solid #eee; margin-top: 15px; padding-top: 15px; }
-        .admin-btn { background: var(--blue); margin-right: 10px; margin-bottom: 10px; }
+        .admin-btn { background: var(--blue); margin-right: 10px; margin-bottom: 10px; padding: 10px 15px; border: none; border-radius: 5px; color: white; cursor: pointer; font-weight: bold; }
+        .admin-btn:disabled { background: #ccc; cursor: not-allowed; }
         .admin-btn.download { background: var(--green); }
+        .admin-btn.custom-download { background: #9b59b6; }
         .admin-btn.danger { background: var(--red); }
 
         textarea { width: 100%; height: 120px; margin-top: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: monospace; resize: vertical; box-sizing: border-box; }
@@ -117,8 +119,9 @@
 
         <div class="admin-section">
             <h3>1. Експорт даних</h3>
-            <p>Скачати поточну базу (разом із вашими доданими локальними питаннями) у файл:</p>
-            <button class="admin-btn download" onclick="exportToJSONFile()">💾 Скачати оновлений JSON</button>
+            <p>Виберіть, яку саме частину бази ви хочете скачати у файл JSON:</p>
+            <button class="admin-btn download" onclick="exportBaseQuestions()">💾 Скачати базовий JSON (Сайт)</button>
+            <button class="admin-btn custom-download" id="download-custom-btn" onclick="exportCustomQuestions()">💾 Скачати кастомні питання (ШІ)</button>
         </div>
 
         <div class="admin-section">
@@ -156,50 +159,52 @@
         <h3 id="confirm-title" style="margin-top: 0; color: var(--dark);">Увага!</h3>
         <p id="confirm-message" style="color: #555; margin-bottom: 25px;">Ви дійсно хочете виконати цю дію?</p>
         <div style="display: flex; justify-content: center; gap: 15px;">
-            <button id="confirm-yes-btn" style="background: var(--red); padding: 10px 25px;">Так, скинути</button>
-            <button onclick="switchConfirmationDialog(false)" style="background: #7f8c8d; padding: 10px 25px;">Скасувати</button>
+            <button id="confirm-yes-btn" style="background: var(--red); padding: 10px 25px; border: none; border-radius: 5px; color: white; cursor: pointer; font-weight: bold;">Так, скинути</button>
+            <button onclick="switchConfirmationDialog(false)" style="background: #7f8c8d; padding: 10px 25px; border: none; border-radius: 5px; color: white; cursor: pointer; font-weight: bold;">Скасувати</button>
         </div>
     </div>
 </div>
 <script>
     let allQuestions = [];
+    let serverQuestionsOnly = []; // Чиста копія серверної бази без ШІ
     let filteredQuestions = [];
     let currentIndex = 0;
     let score = 0;
     let activeFilters = {};
     let timerInterval;
     const TOTAL_TIME = 2 * 60 * 60; // 2 години у секундах (7200 секунд)
-    // Зчитуємо залишок часу з пам'яті, якщо його немає — беремо 2 години
-    // НАДІЙНИЙ ВАРІАНТ: якщо з пам'яті повернувся NaN або 0, автоматично беремо TOTAL_TIME
+
     let savedTime = parseInt(localStorage.getItem('test_time_left'));
     let timeLeft = (!isNaN(savedTime) && savedTime > 0) ? savedTime : TOTAL_TIME;
-    // ВІДНОВЛЕННЯ ПОЗИЦІЇ ЗАПИТАННЯ:
-    // Зчитуємо збережений індекс. Якщо його немає — починаємо з 0 (перше питання)
+
     let savedIndex = parseInt(localStorage.getItem('test_current_index'));
-    currentIndex = !isNaN(savedIndex) ? savedIndex : 0;
-    // Завантажуємо локальні збережені питання користувача з пам'яті браузера
+    currentIndex = (!isNaN(savedIndex) && savedIndex >= 0) ? savedIndex : 0;
+
     let localQuestions = JSON.parse(localStorage.getItem('my_custom_questions')) || [];
 
-    // Додаємо мітку часу, щоб обійти застряглий кеш GitHub CDN
+    // Оновлюємо стан кнопки скачування кастомних питань при першому старті
+    updateCustomDownloadButtonState();
+
     const cacheBuster = '?v=' + new Date().getTime();
-    // Завантаження офіційного файлу з сервера
+
     fetch('./questions.json' + cacheBuster)
         .then(response => {
-            if (!response.ok) throw new Error("Файл не знайдено на сервері");
+            if (!response.ok) throw new Error("Файл не знайдено на serveri");
             return response.json();
         })
         .then(serverData => {
+            serverQuestionsOnly = JSON.parse(JSON.stringify(serverData)); // Зберігаємо чистий оригінал
+
             // Об'єднуємо серверні та локальні питання
             allQuestions = [...serverData, ...localQuestions];
 
-            // ВІДНОВЛЕННЯ ПРОГРЕСУ: перевіряємо, чи є збережені відповіді в пам'яті
+            // ВІДНОВЛЕННЯ ПРОГРЕСУ
             const savedAnswers = JSON.parse(localStorage.getItem('user_test_progress')) || {};
-            score = 0; // Скидаємо рахунок перед перерахунком
+            score = 0;
 
             allQuestions.forEach(q => {
                 if (savedAnswers[q.id]) {
-                    q.userAnswer = savedAnswers[q.id]; // Повертаємо збережену відповідь у питання
-                    // Якщо відповідь була правильною — додаємо до рахунку
+                    q.userAnswer = savedAnswers[q.id];
                     if (q.userAnswer === q.correct_answer_id) {
                         score++;
                     }
@@ -209,26 +214,24 @@
             document.getElementById('score').innerText = score;
             filteredQuestions = [...allQuestions];
 
-            // Захист від збоїв: якщо база питань зменшилась, а збережений індекс більший за кількість питань
-            if (savedIndex >= filteredQuestions.length) {
-                savedIndex = 0;
+            // ЗАХИСТ ВІД ЗБОЇВ ТА NaN: якщо база змінилась або індекс зламаний
+            if (isNaN(currentIndex) || currentIndex >= filteredQuestions.length || currentIndex < 0) {
+                currentIndex = 0;
+                localStorage.setItem('test_current_index', 0);
             }
 
-            currentIndex = savedIndex; // Присвоюємо відновлений індекс програмі
             renderQuestion();
             startTimer();
         })
         .catch(err => {
             console.error("Деталі помилки завантаження:", err);
-            // Якщо сервер недоступний, але є питання в локальній пам'яті — працюємо з ними
             if (localQuestions.length > 0) {
                 allQuestions = localQuestions;
                 filteredQuestions = [...allQuestions];
-                if (currentIndex >= filteredQuestions.length) currentIndex = 0;
+                if (isNaN(currentIndex) || currentIndex >= filteredQuestions.length) currentIndex = 0;
                 renderQuestion();
                 startTimer();
             } else {
-                // Виводимо більш детальну підказку для розробника
                 document.getElementById('q-text').innerText =
                     "Помилка завантаження бази даних. Перевірте, чи файл questions.json лежить у корені проєкту та чи збігається регістр букв у назві.";
                 alert("Помилка завантаження questions.json");
@@ -244,12 +247,17 @@
             return;
         }
 
+        // Подвійний захист поточного індексу всередині функції відрисування
+        if (isNaN(currentIndex) || currentIndex >= filteredQuestions.length || currentIndex < 0) {
+            currentIndex = 0;
+        }
+
         const q = filteredQuestions[currentIndex];
         document.getElementById('display-topic').innerText = q.topic;
         document.getElementById('display-diff').innerText = q.difficulty;
         document.getElementById('q-code').innerText = `Question Code: [${q.question_code}]`;
         document.getElementById('q-text').innerText = q.question_text.replaceAll('\\n', '\n');
-        document.getElementById('q-source').innerText = `Джерело: ${q.metadata.source}`;
+        document.getElementById('q-source').innerText = `Джерело: ${(q.metadata && q.metadata.source) ? q.metadata.source : 'Не вказано'}`;
         document.getElementById('q-number').innerText = `${currentIndex + 1} / ${filteredQuestions.length}`;
 
         const optionsContainer = document.getElementById('options-container');
@@ -289,35 +297,25 @@
         document.getElementById('last-btn').disabled = document.getElementById('next-btn').disabled;
     }
 
-    // Функція запуску відліку
     function startTimer() {
-        // Оновлюємо відображення одразу при запуску
         updateTimerDisplay();
-
-        // Запускаємо щосекундне зменшення часу
         timerInterval = setInterval(() => {
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
                 alert("Час вичерпано! Тест завершено.");
-                // Тут за бажанням можна заблокувати вибір відповідей
                 return;
             }
-
             timeLeft--;
-            localStorage.setItem('test_time_left', timeLeft); // Зберігаємо кожну секунду в пам'ять
+            localStorage.setItem('test_time_left', timeLeft);
             updateTimerDisplay();
         }, 1000);
     }
 
-    // Функція перетворення секунд у формат ГГ:ХХ:СС
     function updateTimerDisplay() {
         const hours = Math.floor(timeLeft / 3600);
         const minutes = Math.floor((timeLeft % 3600) / 60);
         const seconds = timeLeft % 60;
-
-        // Форматуємо, щоб завжди було два знаки (наприклад, 02:05:09)
         const pad = (num) => String(num).padStart(2, '0');
-
         document.getElementById('timer-display').innerText = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
     }
 
@@ -328,8 +326,6 @@
             document.getElementById('score').innerText = score;
         }
 
-        // ЗБЕРЕЖЕННЯ В ЛОКАЛЬНУ ПАМ'ЯТЬ:
-        // Зчитуємо поточну карту прогресу, додаємо нову відповідь і записуємо назад
         const savedAnswers = JSON.parse(localStorage.getItem('user_test_progress')) || {};
         savedAnswers[questionObj.id] = selectedOptionId;
         localStorage.setItem('user_test_progress', JSON.stringify(savedAnswers));
@@ -337,48 +333,28 @@
         renderQuestion();
     }
 
-    // Функція очищення історії через красиве модальне вікно
     function resetTestProgress() {
-        // 1. Показуємо наше власне модальне вікно замість стандартного confirm
         switchConfirmationDialog(true, `Ви набрали балів: ${score}. Дійсно хочете скинути весь прогрес та обнулити рахунок?`);
 
-        // 2. Навішуємо дію на кнопку "Так, скинути"
         document.getElementById('confirm-yes-btn').onclick = function() {
-            // Ховаємо модалку підтвердження
             switchConfirmationDialog(false);
-
-            // Видаляємо збережені відповіді з пам'яті браузера
             localStorage.removeItem('user_test_progress');
 
-            // Видаляємо відповіді з об'єктів у поточній сесії
             allQuestions.forEach(q => {
                 if (q.hasOwnProperty('userAnswer')) {
                     delete q.userAnswer;
                 }
             });
 
-            // Обнуляємо рахунок
             score = 0;
             document.getElementById('score').innerText = score;
-
-            // Скидання таймера:
             clearInterval(timerInterval);
-
-            // Зупиняємо старий таймер
             timeLeft = TOTAL_TIME;
-
-            // Скидаємо час на 2 години
-            localStorage.setItem('test_time_left', timeLeft); // Зберігаємо в LocalStorage
-
-            // Запускаємо таймер заново з чистого листа
+            localStorage.setItem('test_time_left', timeLeft);
             startTimer();
 
-            // 3. Скидання позиції на початок:
             currentIndex = 0;
-            // Скидаємо в LocalStorage
             localStorage.setItem('test_current_index', currentIndex);
-
-            // Перемальовуємо поточне питання
             renderQuestion();
         };
     }
@@ -391,12 +367,10 @@
         } else {
             currentIndex += step;
         }
-        // Захист від виходу за межі масиву
-        if (currentIndex < 0)
-            currentIndex = 0;
-        if (currentIndex >= filteredQuestions.length)
-            currentIndex = filteredQuestions.length - 1;
-        // Записуємо індекс активного запитання в пам'ять
+
+        if (currentIndex < 0) currentIndex = 0;
+        if (currentIndex >= filteredQuestions.length) currentIndex = filteredQuestions.length - 1;
+
         localStorage.setItem('test_current_index', currentIndex);
         renderQuestion();
     }
@@ -418,18 +392,17 @@
         });
 
         currentIndex = 0;
-        // Скидаємо індекс активного запитання в пам'яті також в 0, щоб при зміні фільтру позиція теж коректно оновлювалася в пам'яті.
         localStorage.setItem('test_current_index', 0);
         renderQuestion();
     }
 
-    // Логіка Модального Вікна (Адмінки)
     function toggleModal(show) {
         document.getElementById('admin-modal').style.display = show ? 'flex' : 'none';
+        if (show) {
+            updateCustomDownloadButtonState();
+        }
     }
 
-    // Керування модальним вікном підтвердження, показувати або ховати це вікно
-    // функція toggleConfirmModal перейменована в switchConfirmationDialog
     function switchConfirmationDialog(show, message = "") {
         const modal = document.getElementById('confirm-modal');
         if (show) {
@@ -440,21 +413,50 @@
         }
     }
 
-    // Експорт повної бази у JSON файл
-    function exportToJSONFile() {
-        // Очищаємо відповіді користувача перед експортом, щоб зберегти чисту базу
-        const cleanQuestions = allQuestions.map(({userAnswer, ...rest}) => rest);
+    // НОВА ФУНКЦІЯ: Експорт ТІЛЬКИ офіційної базової частини сайту
+    function exportBaseQuestions() {
+        if (serverQuestionsOnly.length === 0) return alert("Базова база даних порожня або не завантажилась!");
 
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(cleanQuestions, null, 2));
+        // Очищаємо тимчасові відповіді користувача про всяк випадок
+        const cleanBase = serverQuestionsOnly.map(({userAnswer, ...rest}) => rest);
+        triggerDownload(cleanBase, "questions.json");
+    }
+
+    // НОВА ФУНКЦІЯ: Експорт ТІЛЬКИ кастомних питань з ШІ (localStorage)
+    function exportCustomQuestions() {
+        const customData = JSON.parse(localStorage.getItem('my_custom_questions')) || [];
+        if (customData.length === 0) return alert("У вас немає доданих питань ШІ для експорту!");
+
+        const cleanCustom = customData.map(({userAnswer, ...rest}) => rest);
+        triggerDownload(cleanCustom, "my_custom_questions.json");
+    }
+
+    // Технічний хелпер для скачування файлів
+    function triggerDownload(dataArray, filename) {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataArray, null, 2));
         const downloadAnchor = document.createElement('a');
         downloadAnchor.setAttribute("href", dataStr);
-        downloadAnchor.setAttribute("download", "Interview_query_updated.json");
+        downloadAnchor.setAttribute("download", filename);
         document.body.appendChild(downloadAnchor);
         downloadAnchor.click();
         downloadAnchor.remove();
     }
 
-    // Імпорт питань з ChatGPT
+    // Оновлення стану доступності кнопки для кастомного скачування
+    function updateCustomDownloadButtonState() {
+        const btn = document.getElementById('download-custom-btn');
+        if (!btn) return;
+        const customData = JSON.parse(localStorage.getItem('my_custom_questions')) || [];
+
+        if (customData.length > 0) {
+            btn.disabled = false;
+            btn.innerText = `💾 Скачати кастомні питання (Знайдено: ${customData.length})`;
+        } else {
+            btn.disabled = true;
+            btn.innerText = "💾 Скачати кастомні питання (Порожньо)";
+        }
+    }
+
     function importAIQuestions() {
         const input = document.getElementById('json-input').value.trim();
         if (!input) return alert("Поле порожнє!");
@@ -463,17 +465,18 @@
             const parsed = JSON.parse(input);
             const newQuestions = Array.isArray(parsed) ? parsed : [parsed];
 
-            // Зберігаємо в LocalStorage
             localQuestions = [...localQuestions, ...newQuestions];
             localStorage.setItem('my_custom_questions', JSON.stringify(localQuestions));
 
-            // Оновлюємо масив програми
-            allQuestions = [...allQuestions, ...newQuestions];
+            allQuestions = [...serverQuestionsOnly, ...localQuestions]; // Склеюємо з чистою базою
             filteredQuestions = [...allQuestions];
 
             document.getElementById('json-input').value = '';
             toggleModal(false);
-            currentIndex = allQuestions.length - newQuestions.length; // Перемикаємо на перше додане питання
+
+            currentIndex = allQuestions.length - newQuestions.length;
+            localStorage.setItem('test_current_index', currentIndex);
+
             renderQuestion();
             alert(`Успішно додано питань: ${newQuestions.length}! Вони збережені у вашому браузері.`);
         } catch (e) {
@@ -481,13 +484,9 @@
         }
     }
 
-    // Оновлене видалення локальних питань з Адмінки
     function clearLocalQuestions() {
-        toggleModal(false); // Ховаємо адмінку на час запиту
-
+        toggleModal(false);
         switchConfirmationDialog(true, "Ви дійсно хочете видалити всі додані вами питання? Офіційна база сайту не постраждає.");
-
-        // Міняємо текст на кнопці підтвердження під цей контекст
         document.getElementById('confirm-yes-btn').innerText = "Так, видалити";
 
         document.getElementById('confirm-yes-btn').onclick = function() {
@@ -495,41 +494,33 @@
             localStorage.removeItem('my_custom_questions');
             localQuestions = [];
 
-        const cacheBuster = '?v=' + new Date().getTime();
+            allQuestions = [...serverQuestionsOnly]; // Залишаємо тільки чисту серверну базу
+            filteredQuestions = [...allQuestions];
 
-            fetch('./questions.json' + cacheBuster)
-                .then(r => r.json())
-                .then(data => {
-                    allQuestions = data;
-                    filteredQuestions = [...allQuestions];
-                    currentIndex = 0;
-                    renderQuestion();
-                    // Повертаємо початковий текст кнопці на майбутнє
-                    document.getElementById('confirm-yes-btn').innerText = "Так, скинути";
-                });
+            currentIndex = 0;
+            localStorage.setItem('test_current_index', 0);
+
+            renderQuestion();
+            document.getElementById('confirm-yes-btn').innerText = "Так, скинути";
+            alert("Всі кастомні запитання видалено.");
         };
     }
 
-    // Керування тестом за допомогою клавіатури (стрілки Вліво / Вправо)
     document.addEventListener('keydown', function(event) {
-    // Якщо у користувача зараз відкрита адмінка (модальне вікно) і він пише в textarea,
-    // ми вимикаємо перемикання стрілками, щоб не збивати введення тексту.
-    if (document.getElementById('admin-modal').style.display === 'flex') {
-        return;
-    }
+        if (document.getElementById('admin-modal').style.display === 'flex') {
+            return;
+        }
 
-    if (event.key === 'ArrowLeft') {
-        // Натиснули стрілку "Вліво" — переходимо назад (якщо кнопка не заблокована)
-        if (!document.getElementById('prev-btn').disabled) {
-            changeQuestion(-1);
+        if (event.key === 'ArrowLeft') {
+            if (!document.getElementById('prev-btn').disabled) {
+                changeQuestion(-1);
+            }
+        } else if (event.key === 'ArrowRight') {
+            if (!document.getElementById('next-btn').disabled) {
+                changeQuestion(1);
+            }
         }
-    } else if (event.key === 'ArrowRight') {
-        // Натиснули стрілку "Вправо" — переходимо вперед (якщо кнопка не заблокована)
-        if (!document.getElementById('next-btn').disabled) {
-            changeQuestion(1);
-        }
-    }
-});
+    });
 </script>
 
 </body>
