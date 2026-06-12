@@ -10,6 +10,7 @@
             --dark: #2c3e50;
             --light: #ecf0f1;
             --blue: #3498db;
+            --orange: #e67e22;
         }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #627584; margin: 0; padding: 20px; }
         .container { max-width: 800px; margin: 0 auto; background: #e8f7fe; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative;}
@@ -70,13 +71,14 @@
     <div class="top-panel">
         <div>Тема: <span id="display-topic">-</span></div>
         <div>Складність: <span id="display-diff">-</span></div>
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <div style="background: #e67e22; color: white; padding: 2px 8px; border-radius: 4px; font-variant-numeric: tabular-nums;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="background: var(--orange); color: white; padding: 2px 8px; border-radius: 4px; font-variant-numeric: tabular-nums;">
                 ⏱️ Час: <span id="timer-display">02:00:00</span>
             </div>
             <div>
                 Рахунок: <span id="score">0</span>
-                <button id="reset-progress-btn" onclick="resetTestProgress()" style="padding: 2px 8px; margin-left: 10px; background: var(--red); font-size: 0.8em;">🔄 Скинути тест</button>
+                <button id="reset-progress-btn" onclick="resetTestProgress()" style="padding: 2px 8px; margin-left: 5px; background: var(--orange); font-size: 0.8em;">🔄 Скинути прогрес</button>
+                <button id="delete-card-btn" onclick="deleteCurrentQuestion()" style="padding: 2px 8px; margin-left: 5px; background: var(--red); font-size: 0.8em;" disabled>🗑️ Видалити картку</button>
             </div>
         </div>
     </div>
@@ -119,7 +121,7 @@
 
         <div class="admin-section">
             <h3>1. Експорт даних</h3>
-            <p>Виберіть, яку саме частину бази ви хочете скачати у файл JSON:</p>
+            <p>Виберіть, яку самеLincoln частину бази ви хочете скачати у файл JSON:</p>
             <button class="admin-btn download" onclick="exportBaseQuestions()">💾 Скачати базовий JSON (Сайт)</button>
             <button class="admin-btn custom-download" id="download-custom-btn" onclick="exportCustomQuestions()">💾 Скачати кастомні питання (ШІ)</button>
         </div>
@@ -129,7 +131,7 @@
             <p>Вставте отриманий масив JSON. Скрипт автоматично перевірить відсоток схожості текстів:</p>
             <textarea id="json-input" placeholder='[{"id": "ai-001", "topic": "JS", ...}]'></textarea>
             <button class="admin-btn" onclick="importAIQuestions()">➕ Додати питання в базу</button>
-            <button class="admin-btn danger" onclick="clearLocalQuestions()">🗑️ Стерти мої локальні питання</button>
+            <button class="admin-btn danger" onclick="clearLocalQuestions()">🗑️ Стерти всі мої локальні питання</button>
         </div>
 
         <div class="admin-section">
@@ -160,7 +162,7 @@
         <h3 id="confirm-title" style="margin-top: 0; color: var(--dark);">Увага!</h3>
         <p id="confirm-message" style="color: #555; margin-bottom: 25px;">Ви дійсно хочете виконати цю дію?</p>
         <div style="display: flex; justify-content: center; gap: 15px;">
-            <button id="confirm-yes-btn" style="background: var(--red); padding: 10px 25px; border: none; border-radius: 5px; color: white; cursor: pointer; font-weight: bold;">Так, скинути</button>
+            <button id="confirm-yes-btn" style="background: var(--red); padding: 10px 25px; border: none; border-radius: 5px; color: white; cursor: pointer; font-weight: bold;">Так, виконати</button>
             <button onclick="switchConfirmationDialog(false)" style="background: #7f8c8d; padding: 10px 25px; border: none; border-radius: 5px; color: white; cursor: pointer; font-weight: bold;">Скасувати</button>
         </div>
     </div>
@@ -197,19 +199,7 @@
             serverQuestionsOnly = JSON.parse(JSON.stringify(serverData));
             allQuestions = [...serverData, ...localQuestions];
 
-            const savedAnswers = JSON.parse(localStorage.getItem('user_test_progress')) || {};
-            score = 0;
-
-            allQuestions.forEach(q => {
-                if (savedAnswers[q.id]) {
-                    q.userAnswer = savedAnswers[q.id];
-                    if (q.userAnswer === q.correct_answer_id) {
-                        score++;
-                    }
-                }
-            });
-
-            document.getElementById('score').innerText = score;
+            recalculateScore();
             filteredQuestions = [...allQuestions];
 
             if (isNaN(currentIndex) || currentIndex >= filteredQuestions.length || currentIndex < 0) {
@@ -234,12 +224,32 @@
             }
         });
 
+    function recalculateScore() {
+        const savedAnswers = JSON.parse(localStorage.getItem('user_test_progress')) || {};
+        score = 0;
+        allQuestions.forEach(q => {
+            if (savedAnswers[q.id]) {
+                q.userAnswer = savedAnswers[q.id];
+                if (q.userAnswer === q.correct_answer_id) {
+                    score++;
+                }
+            } else if (q.hasOwnProperty('userAnswer')) {
+                // Якщо відповідь є в об'єкті, але немає в сховищі
+                if (q.userAnswer === q.correct_answer_id) score++;
+            }
+        });
+        document.getElementById('score').innerText = score;
+    }
+
     function renderQuestion() {
+        const deleteBtn = document.getElementById('delete-card-btn');
+
         if (filteredQuestions.length === 0) {
             document.getElementById('q-text').innerText = "Нічого не знайдено за вашими фільтрами";
             document.getElementById('options-container').innerHTML = '';
             document.getElementById('explanation-box').style.display = 'none';
             document.getElementById('q-number').innerText = "0 / 0";
+            if(deleteBtn) deleteBtn.disabled = true;
             return;
         }
 
@@ -254,6 +264,12 @@
         document.getElementById('q-text').innerText = q.question_text.replaceAll('\\n', '\n');
         document.getElementById('q-source').innerText = `Джерело: ${(q.metadata && q.metadata.source) ? q.metadata.source : 'Не вказано'}`;
         document.getElementById('q-number').innerText = `${currentIndex + 1} / ${filteredQuestions.length}`;
+
+        // КЕРУВАННЯ АКТИВНІСТЮ КНОПКИ ВИДАЛЕННЯ: дозволено тільки для ШІ питань
+        if (deleteBtn) {
+            const isCustom = localQuestions.some(localQ => localQ.id === q.id);
+            deleteBtn.disabled = !isCustom;
+        }
 
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = '';
@@ -287,9 +303,57 @@
         }
 
         document.getElementById('prev-btn').disabled = currentIndex === 0;
-        document.getElementById('first-btn').disabled = document.getElementById('prev-btn').disabled
+        document.getElementById('first-btn').disabled = document.getElementById('prev-btn').disabled;
         document.getElementById('next-btn').disabled = currentIndex === filteredQuestions.length - 1;
         document.getElementById('last-btn').disabled = document.getElementById('next-btn').disabled;
+    }
+
+    // НОВА ФУНКЦІЯ: Видалення ПOТОЧНОГО запитання від ШІ
+    function deleteCurrentQuestion() {
+        if (filteredQuestions.length === 0) return;
+        const q = filteredQuestions[currentIndex];
+
+        switchConfirmationDialog(true, `Ви дійсно хочете безповоротно видалити це запитання від ШІ з бази?\n\n[${q.question_code}] "${q.question_text.substring(0, 50)}..."`);
+        document.getElementById('confirm-yes-btn').innerText = "Так, видалити";
+
+        document.getElementById('confirm-yes-btn').onclick = function() {
+            switchConfirmationDialog(false);
+
+            // 1. Видаляємо з масиву локальних питань ШІ
+            localQuestions = localQuestions.filter(localQ => localQ.id !== q.id);
+            localStorage.setItem('my_custom_questions', JSON.stringify(localQuestions));
+
+            // 2. Видаляємо відповідь з прогресу користувача (якщо вона була)
+            const savedAnswers = JSON.parse(localStorage.getItem('user_test_progress')) || {};
+            if (savedAnswers[q.id]) {
+                delete savedAnswers[q.id];
+                localStorage.setItem('user_test_progress', JSON.stringify(savedAnswers));
+            }
+
+            // 3. Пересклеюємо загальну базу
+            allQuestions = [...serverQuestionsOnly, ...localQuestions];
+
+            // 4. Оновлюємо відфільтрований масив (щоб зберегти поточний пошуковий контекст)
+            const oldId = q.id;
+            filteredQuestions = filteredQuestions.filter(filteredQ => filteredQ.id !== oldId);
+
+            // 5. Коригуємо поточний індекс, щоб інтерфейс не впав
+            if (currentIndex >= filteredQuestions.length) {
+                currentIndex = filteredQuestions.length - 1;
+            }
+            if (currentIndex < 0) currentIndex = 0;
+
+            localStorage.setItem('test_current_index', currentIndex);
+
+            // 6. Оновлюємо бали та екран
+            recalculateScore();
+            renderQuestion();
+            updateCustomDownloadButtonState();
+
+            // Повертаємо кнопці підтвердження дефолтне значення
+            document.getElementById('confirm-yes-btn').innerText = "Так, виконати";
+            alert("Картку успішно видалено з локальної бази браузера.");
+        };
     }
 
     function startTimer() {
@@ -316,20 +380,18 @@
 
     function checkAnswer(selectedOptionId, questionObj) {
         questionObj.userAnswer = selectedOptionId;
-        if (selectedOptionId === questionObj.correct_answer_id) {
-            score++;
-            document.getElementById('score').innerText = score;
-        }
 
         const savedAnswers = JSON.parse(localStorage.getItem('user_test_progress')) || {};
         savedAnswers[questionObj.id] = selectedOptionId;
         localStorage.setItem('user_test_progress', JSON.stringify(savedAnswers));
 
+        recalculateScore();
         renderQuestion();
     }
 
     function resetTestProgress() {
         switchConfirmationDialog(true, `Ви набрали балів: ${score}. Дійсно хочете скинути весь прогрес та обнулити рахунок?`);
+        document.getElementById('confirm-yes-btn').innerText = "Так, скинути";
 
         document.getElementById('confirm-yes-btn').onclick = function() {
             switchConfirmationDialog(false);
@@ -351,6 +413,7 @@
             currentIndex = 0;
             localStorage.setItem('test_current_index', currentIndex);
             renderQuestion();
+            document.getElementById('confirm-yes-btn').innerText = "Так, виконати";
         };
     }
 
@@ -444,16 +507,11 @@
         }
     }
 
-    // ==========================================
-    // СИСТЕМА АНТИ-ДУБЛІКАТІВ ТА СХОЖОСТІ ТЕКСТІВ
-    // ==========================================
-
-    // Математичний підрахунок коефіцієнта схожості Діце (Sørensen–Dice)
     function calculateTextSimilarity(str1, str2) {
         const s1 = str1.toLowerCase().replace(/[^\w\а-яіїєґ\s]/g, '').replace(/\s+/g, '');
         const s2 = str2.toLowerCase().replace(/[^\w\а-яіїєґ\s]/g, '').replace(/\s+/g, '');
 
-        if (s1 === s2) return 1.0; // Абсолютно ідентичні тексти
+        if (s1 === s2) return 1.0;
         if (s1.length < 2 || s2.length < 2) return 0.0;
 
         const getBigrams = (str) => {
@@ -491,7 +549,6 @@
                 let highestSimilarity = 0;
                 let mostSimilarQuestion = null;
 
-                // Перевіряємо завантажуване питання по всій поточній базі
                 for (let existing of allQuestions) {
                     const sim = calculateTextSimilarity(incoming.question_text, existing.question_text);
                     if (sim > highestSimilarity) {
@@ -503,17 +560,15 @@
                 const percent = Math.round(highestSimilarity * 100);
 
                 if (percent >= 95) {
-                    // Жорсткий дублікат — блокуємо автоматично
                     console.warn(`Блокування дубліката: [${incoming.question_code}] схоже на [${mostSimilarQuestion.question_code}] на ${percent}%`);
                     skippedCount++;
                 } else if (percent >= 60) {
-                    // Сумнівне питання — запитуємо у користувача
                     const userDecision = confirm(
                         `⚠️ Знайдено схоже запитання!\n\n` +
                         `Нове питання: [${incoming.question_code}] "${incoming.question_text.substring(0, 60)}..."\n` +
                         `Існуюче: [${mostSimilarQuestion.question_code}] "${mostSimilarQuestion.question_text.substring(0, 60)}..."\n\n` +
                         `Схожість складає: ${percent}%.\n` +
-                        `Додати це питання все одно як унікальне? (Натисніть Скасувати, щоб пропустити його)`
+                        `Додати це питання все одно як унікальне?`
                     );
 
                     if (userDecision) {
@@ -523,7 +578,6 @@
                         skippedCount++;
                     }
                 } else {
-                    // Повністю унікальне питання
                     questionsToSave.push(incoming);
                     addedCount++;
                 }
@@ -557,8 +611,8 @@
 
     function clearLocalQuestions() {
         toggleModal(false);
-        switchConfirmationDialog(true, "Ви дійсно хочете видалити всі додані вами питання? Офіційна база сайту не постраждає.");
-        document.getElementById('confirm-yes-btn').innerText = "Так, видалити";
+        switchConfirmationDialog(true, "Ви дійсно хочете видалити ВСІ додані вами питання? Офіційна база сайту не постраждає.");
+        document.getElementById('confirm-yes-btn').innerText = "Так, видалити все";
 
         document.getElementById('confirm-yes-btn').onclick = function() {
             switchConfirmationDialog(false);
@@ -571,16 +625,15 @@
             currentIndex = 0;
             localStorage.setItem('test_current_index', 0);
 
+            recalculateScore();
             renderQuestion();
-            document.getElementById('confirm-yes-btn').innerText = "Так, скинути";
+            document.getElementById('confirm-yes-btn').innerText = "Так, виконати";
             alert("Всі кастомні запитання видалено.");
         };
     }
 
     document.addEventListener('keydown', function(event) {
-        if (document.getElementById('admin-modal').style.display === 'flex') {
-            return;
-        }
+        if (document.getElementById('admin-modal').style.display === 'flex') return;
         if (event.key === 'ArrowLeft') {
             if (!document.getElementById('prev-btn').disabled) changeQuestion(-1);
         } else if (event.key === 'ArrowRight') {
