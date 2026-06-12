@@ -27,7 +27,7 @@
 
         /* Середня панель сірий фон => #8497a6 */
         .question-section { margin-bottom: 20px; }
-        .q-header { color: var(--dark); margin-bottom: 15px; line-height: 1.4; white-space: pre-wrap; /* Змушує браузер бачити переноси рядків та правильні пробіли коду Python */}
+        .q-header { color: var(--dark); margin-bottom: 15px; line-height: 1.4; white-space: pre-wrap;}
         .options-list { list-style: none; padding: 0; }
         .option-item {
             padding: 10px; margin-bottom: 6px; border: 1px solid #ddd; border-radius: 6px;
@@ -101,7 +101,6 @@
         <div class="filter-title">Фільтри пошуку:</div>
         <input type="text" placeholder="Пошук за темою" oninput="applyFilters('topic', this.value)">
         <input type="text" placeholder="Код запитання" oninput="applyFilters('question_code', this.value)">
-        <input type="text" placeholder="Складність" oninput="applyFilters('difficulty', this.value)">
         <input type="text" placeholder="Текст запитання" oninput="applyFilters('question_text', this.value)">
         <input type="text" placeholder="Варіанти відповідей" oninput="applyFilters('options', this.value)">
         <input type="text" placeholder="Пояснення" oninput="applyFilters('explanation', this.value)">
@@ -111,6 +110,7 @@
 
     <button class="admin-toggle-btn" onclick="toggleModal(true)">⚙️ А Д М І Н К А  Т А  Ш І</button>
 </div>
+
 <div id="admin-modal" class="modal-overlay" onclick="if(event.target === this) toggleModal(false)">
     <div class="modal-content">
         <span class="close-modal" onclick="toggleModal(false)">&times;</span>
@@ -125,8 +125,8 @@
         </div>
 
         <div class="admin-section">
-            <h3>2. Імпорт нових питань від ШІ</h3>
-            <p>Згенеруйте питання в ChatGPT та вставте отриманий масив JSON у поле нижче:</p>
+            <h3>2. Імпорт нових питань від ШІ (Із захистом від дублікатів)</h3>
+            <p>Вставте отриманий масив JSON. Скрипт автоматично перевірить відсоток схожості текстів:</p>
             <textarea id="json-input" placeholder='[{"id": "ai-001", "topic": "JS", ...}]'></textarea>
             <button class="admin-btn" onclick="importAIQuestions()">➕ Додати питання в базу</button>
             <button class="admin-btn danger" onclick="clearLocalQuestions()">🗑️ Стерти мої локальні питання</button>
@@ -154,6 +154,7 @@
         </div>
     </div>
 </div>
+
 <div id="confirm-modal" class="modal-overlay" style="z-index: 1100;">
     <div class="modal-content" style="max-width: 400px; text-align: center; padding: 30px;">
         <h3 id="confirm-title" style="margin-top: 0; color: var(--dark);">Увага!</h3>
@@ -164,15 +165,16 @@
         </div>
     </div>
 </div>
+
 <script>
     let allQuestions = [];
-    let serverQuestionsOnly = []; // Чиста копія серверної бази без ШІ
+    let serverQuestionsOnly = [];
     let filteredQuestions = [];
     let currentIndex = 0;
     let score = 0;
     let activeFilters = {};
     let timerInterval;
-    const TOTAL_TIME = 2 * 60 * 60; // 2 години у секундах (7200 секунд)
+    const TOTAL_TIME = 2 * 60 * 60;
 
     let savedTime = parseInt(localStorage.getItem('test_time_left'));
     let timeLeft = (!isNaN(savedTime) && savedTime > 0) ? savedTime : TOTAL_TIME;
@@ -182,23 +184,19 @@
 
     let localQuestions = JSON.parse(localStorage.getItem('my_custom_questions')) || [];
 
-    // Оновлюємо стан кнопки скачування кастомних питань при першому старті
     updateCustomDownloadButtonState();
 
     const cacheBuster = '?v=' + new Date().getTime();
 
     fetch('./questions.json' + cacheBuster)
         .then(response => {
-            if (!response.ok) throw new Error("Файл не знайдено на serveri");
+            if (!response.ok) throw new Error("Файл не знайдено на сервері");
             return response.json();
         })
         .then(serverData => {
-            serverQuestionsOnly = JSON.parse(JSON.stringify(serverData)); // Зберігаємо чистий оригінал
-
-            // Об'єднуємо серверні та локальні питання
+            serverQuestionsOnly = JSON.parse(JSON.stringify(serverData));
             allQuestions = [...serverData, ...localQuestions];
 
-            // ВІДНОВЛЕННЯ ПРОГРЕСУ
             const savedAnswers = JSON.parse(localStorage.getItem('user_test_progress')) || {};
             score = 0;
 
@@ -214,7 +212,6 @@
             document.getElementById('score').innerText = score;
             filteredQuestions = [...allQuestions];
 
-            // ЗАХИСТ ВІД ЗБОЇВ ТА NaN: якщо база змінилась або індекс зламаний
             if (isNaN(currentIndex) || currentIndex >= filteredQuestions.length || currentIndex < 0) {
                 currentIndex = 0;
                 localStorage.setItem('test_current_index', 0);
@@ -232,8 +229,7 @@
                 renderQuestion();
                 startTimer();
             } else {
-                document.getElementById('q-text').innerText =
-                    "Помилка завантаження бази даних. Перевірте, чи файл questions.json лежить у корені проєкту та чи збігається регістр букв у назві.";
+                document.getElementById('q-text').innerText = "Помилка завантаження бази даних.";
                 alert("Помилка завантаження questions.json");
             }
         });
@@ -247,7 +243,6 @@
             return;
         }
 
-        // Подвійний захист поточного індексу всередині функції відрисування
         if (isNaN(currentIndex) || currentIndex >= filteredQuestions.length || currentIndex < 0) {
             currentIndex = 0;
         }
@@ -413,25 +408,19 @@
         }
     }
 
-    // НОВА ФУНКЦІЯ: Експорт ТІЛЬКИ офіційної базової частини сайту
     function exportBaseQuestions() {
-        if (serverQuestionsOnly.length === 0) return alert("Базова база даних порожня або не завантажилась!");
-
-        // Очищаємо тимчасові відповіді користувача про всяк випадок
+        if (serverQuestionsOnly.length === 0) return alert("Базова база даних порожня!");
         const cleanBase = serverQuestionsOnly.map(({userAnswer, ...rest}) => rest);
         triggerDownload(cleanBase, "questions.json");
     }
 
-    // НОВА ФУНКЦІЯ: Експорт ТІЛЬКИ кастомних питань з ШІ (localStorage)
     function exportCustomQuestions() {
         const customData = JSON.parse(localStorage.getItem('my_custom_questions')) || [];
         if (customData.length === 0) return alert("У вас немає доданих питань ШІ для експорту!");
-
         const cleanCustom = customData.map(({userAnswer, ...rest}) => rest);
         triggerDownload(cleanCustom, "my_custom_questions.json");
     }
 
-    // Технічний хелпер для скачування файлів
     function triggerDownload(dataArray, filename) {
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataArray, null, 2));
         const downloadAnchor = document.createElement('a');
@@ -442,12 +431,10 @@
         downloadAnchor.remove();
     }
 
-    // Оновлення стану доступності кнопки для кастомного скачування
     function updateCustomDownloadButtonState() {
         const btn = document.getElementById('download-custom-btn');
         if (!btn) return;
         const customData = JSON.parse(localStorage.getItem('my_custom_questions')) || [];
-
         if (customData.length > 0) {
             btn.disabled = false;
             btn.innerText = `💾 Скачати кастомні питання (Знайдено: ${customData.length})`;
@@ -457,30 +444,114 @@
         }
     }
 
+    // ==========================================
+    // СИСТЕМА АНТИ-ДУБЛІКАТІВ ТА СХОЖОСТІ ТЕКСТІВ
+    // ==========================================
+
+    // Математичний підрахунок коефіцієнта схожості Діце (Sørensen–Dice)
+    function calculateTextSimilarity(str1, str2) {
+        const s1 = str1.toLowerCase().replace(/[^\w\а-яіїєґ\s]/g, '').replace(/\s+/g, '');
+        const s2 = str2.toLowerCase().replace(/[^\w\а-яіїєґ\s]/g, '').replace(/\s+/g, '');
+
+        if (s1 === s2) return 1.0; // Абсолютно ідентичні тексти
+        if (s1.length < 2 || s2.length < 2) return 0.0;
+
+        const getBigrams = (str) => {
+            const bigrams = new Set();
+            for (let i = 0; i < str.length - 1; i++) {
+                bigrams.add(str.substring(i, i + 2));
+            }
+            return bigrams;
+        };
+
+        const bigrams1 = getBigrams(s1);
+        const bigrams2 = getBigrams(s2);
+
+        let intersection = 0;
+        bigrams1.forEach(bigram => {
+            if (bigrams2.has(bigram)) intersection++;
+        });
+
+        return (2.0 * intersection) / (bigrams1.size + bigrams2.size);
+    }
+
     function importAIQuestions() {
         const input = document.getElementById('json-input').value.trim();
         if (!input) return alert("Поле порожнє!");
 
         try {
             const parsed = JSON.parse(input);
-            const newQuestions = Array.isArray(parsed) ? parsed : [parsed];
+            const incomingQuestions = Array.isArray(parsed) ? parsed : [parsed];
 
-            localQuestions = [...localQuestions, ...newQuestions];
-            localStorage.setItem('my_custom_questions', JSON.stringify(localQuestions));
+            let addedCount = 0;
+            let skippedCount = 0;
+            let questionsToSave = [];
 
-            allQuestions = [...serverQuestionsOnly, ...localQuestions]; // Склеюємо з чистою базою
-            filteredQuestions = [...allQuestions];
+            for (let incoming of incomingQuestions) {
+                let highestSimilarity = 0;
+                let mostSimilarQuestion = null;
+
+                // Перевіряємо завантажуване питання по всій поточній базі
+                for (let existing of allQuestions) {
+                    const sim = calculateTextSimilarity(incoming.question_text, existing.question_text);
+                    if (sim > highestSimilarity) {
+                        highestSimilarity = sim;
+                        mostSimilarQuestion = existing;
+                    }
+                }
+
+                const percent = Math.round(highestSimilarity * 100);
+
+                if (percent >= 95) {
+                    // Жорсткий дублікат — блокуємо автоматично
+                    console.warn(`Блокування дубліката: [${incoming.question_code}] схоже на [${mostSimilarQuestion.question_code}] на ${percent}%`);
+                    skippedCount++;
+                } else if (percent >= 60) {
+                    // Сумнівне питання — запитуємо у користувача
+                    const userDecision = confirm(
+                        `⚠️ Знайдено схоже запитання!\n\n` +
+                        `Нове питання: [${incoming.question_code}] "${incoming.question_text.substring(0, 60)}..."\n` +
+                        `Існуюче: [${mostSimilarQuestion.question_code}] "${mostSimilarQuestion.question_text.substring(0, 60)}..."\n\n` +
+                        `Схожість складає: ${percent}%.\n` +
+                        `Додати це питання все одно як унікальне? (Натисніть Скасувати, щоб пропустити його)`
+                    );
+
+                    if (userDecision) {
+                        questionsToSave.push(incoming);
+                        addedCount++;
+                    } else {
+                        skippedCount++;
+                    }
+                } else {
+                    // Повністю унікальне питання
+                    questionsToSave.push(incoming);
+                    addedCount++;
+                }
+            }
+
+            if (questionsToSave.length > 0) {
+                localQuestions = [...localQuestions, ...questionsToSave];
+                localStorage.setItem('my_custom_questions', JSON.stringify(localQuestions));
+
+                allQuestions = [...serverQuestionsOnly, ...localQuestions];
+                filteredQuestions = [...allQuestions];
+
+                currentIndex = allQuestions.length - questionsToSave.length;
+                localStorage.setItem('test_current_index', currentIndex);
+                renderQuestion();
+            }
 
             document.getElementById('json-input').value = '';
             toggleModal(false);
 
-            currentIndex = allQuestions.length - newQuestions.length;
-            localStorage.setItem('test_current_index', currentIndex);
+            let message = `Операція завершена.\nУспішно додано: ${addedCount} нових питань.`;
+            if (skippedCount > 0) {
+                message += `\nПропущено/заблоковано дублікатів: ${skippedCount}. (Деталі дивіться в консолі F12)`;
+            }
+            alert(message);
 
-            renderQuestion();
-            alert(`Успішно додано питань: ${newQuestions.length}! Вони збережені у вашому браузері.`);
         } catch (e) {
-            alert("Помилка валідації JSON. Перевірте формат тексту, який видав ШІ.");
+            alert("Помилка валідації JSON. Перевірте формат структури об'єктів.");
         }
     }
 
@@ -494,7 +565,7 @@
             localStorage.removeItem('my_custom_questions');
             localQuestions = [];
 
-            allQuestions = [...serverQuestionsOnly]; // Залишаємо тільки чисту серверну базу
+            allQuestions = [...serverQuestionsOnly];
             filteredQuestions = [...allQuestions];
 
             currentIndex = 0;
@@ -510,15 +581,10 @@
         if (document.getElementById('admin-modal').style.display === 'flex') {
             return;
         }
-
         if (event.key === 'ArrowLeft') {
-            if (!document.getElementById('prev-btn').disabled) {
-                changeQuestion(-1);
-            }
+            if (!document.getElementById('prev-btn').disabled) changeQuestion(-1);
         } else if (event.key === 'ArrowRight') {
-            if (!document.getElementById('next-btn').disabled) {
-                changeQuestion(1);
-            }
+            if (!document.getElementById('next-btn').disabled) changeQuestion(1);
         }
     });
 </script>
