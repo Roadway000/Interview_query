@@ -15,11 +15,31 @@
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #627584; margin: 0; padding: 20px; }
         .container { max-width: 800px; margin: 0 auto; background: #e8f7fe; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative;}
 
-        /* Верхня панель тема, складність, рахунок */
-        .top-panel { display: flex; justify-content: space-between; border-bottom: 2px solid var(--light); padding-bottom: 10px; margin-bottom: 15px; font-weight: bold; }
+        /* Нова стабільна сітка для верхньої панелі */
+        .top-panel {
+            display: grid;
+            grid-template-columns: 1fr auto; /* Ліва частина гнучка, права (кнопки) — фіксована */
+            align-items: center;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            gap: 10px 10px; /* 10px відступ між рядками теми/складності, 10px — безпечний буфер до кнопок */
+        }
+
+        /* Якщо екран менший за 768px (мобільні), блоки стануть один під одним */
+        @media (max-width: 768px) {
+            .top-panel {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+
+        /* Додаємо залізобетонний захист: на мобільних (менше 768px) панель стане вертикальною */
+        @media (max-width: 768px) { .top-panel { flex-direction: column; align-items: flex-start; gap: 12px; } }
 
         /* Панель керування */
-        .nav-controls { display: flex; justify-content: space-between; margin-top: 10px; }
+        .nav-controls { display: flex; justify-content: space-between; margin-bottom: 20px;}
         button { padding: 10px 20px; border: none; border-radius: 5px; background: var(--dark); color: white; cursor: pointer; font-weight: 500; }
         button:disabled { background: #ccc; cursor: not-allowed; }
 
@@ -28,7 +48,17 @@
 
         /* Середня панель сірий фон => #8497a6 */
         .question-section { margin-bottom: 20px; }
-        .q-header { color: var(--dark); margin-bottom: 15px; line-height: 1.4; white-space: pre-wrap;}
+        /* Стабільна висота для заголовка запитання */
+        .q-header {
+            color: var(--dark);
+            margin-bottom: 15px;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            min-height: 4.2em; /* Резервує місце рівно під 3 рядки тексту (1.4 лінеатура * 3) */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
         .options-list { list-style: none; padding: 0; }
         .option-item {
             padding: 10px; margin-bottom: 6px; border: 1px solid #ddd; border-radius: 6px;
@@ -66,22 +96,29 @@
     </style>
 </head>
 <body>
-
 <div class="container">
+
     <div class="top-panel">
-        <div>Тема: <span id="display-topic">-</span></div>
-        <div>Складність: <span id="display-diff">-</span></div>
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <div style="background: var(--orange); color: white; padding: 2px 8px; border-radius: 4px; font-variant-numeric: tabular-nums;">
-                ⏱️ Час: <span id="timer-display">02:00:00</span>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+            <div>Тема: <span id="display-topic">-</span></div>
+            <div>Складність: <span id="display-diff">-</span></div>
+        </div>
+        <div style="display: flex; align-items: stretch; gap: 10px; white-space: nowrap; flex-shrink: 0;">
+            <!--
+              align-items: stretch; та align-self: stretch;: Змушують браузер взяти висоту найвищого елемента в рядку (таймера)
+              і насильно розтягнути кнопки "reset-progress-btn" та "delete-card-btn" до цього ж розміру піксель-в-піксель.
+            -->
+            <div style="background: #e67e22; color: white; padding: 4px 8px; border-radius: 4px; font-variant-numeric: tabular-nums; display: flex; align-items: center;">
+                ⏱️ Час: &nbsp;<span id="timer-display">02:00:00</span>
             </div>
-            <div>
-                Рахунок: <span id="score">0</span>
-                <button id="reset-progress-btn" onclick="resetTestProgress()" style="padding: 2px 8px; margin-left: 5px; background: var(--orange); font-size: 0.8em;">🔄 Скинути прогрес</button>
-                <button id="delete-card-btn" onclick="deleteCurrentQuestion()" style="padding: 2px 8px; margin-left: 5px; background: var(--red); font-size: 0.8em;" disabled>🗑️ Видалити картку</button>
+            <div style="display: flex; align-items: center; gap: 5px; background: transparent;">
+                <span style="margin-right: 5px; display: flex; align-items: center; font-size: 0.9em;">Рахунок: &nbsp;<span id="score">0</span></span>
+                <button id="reset-progress-btn" onclick="resetTestProgress()" style="align-self: stretch; padding: 0 10px; background: #e67e22; font-size: 0.8em; white-space: nowrap; display: flex; align-items: center;">🔄 Скинути тест</button>
+                <button id="delete-card-btn" onclick="deleteCurrentQuestion()" style="align-self: stretch; padding: 0 10px; background: var(--red); font-size: 0.8em; white-space: nowrap; display: flex; align-items: center;" disabled>🗑️ Видалити картку</button>
             </div>
         </div>
     </div>
+
     <div class="nav-controls">
         <button id="prev-btn" onclick="changeQuestion(-1,false)">← Попереднє</button>
         <button id="first-btn" onclick="changeQuestion(0,true)">Перше |←</button>
@@ -92,10 +129,16 @@
     <div id="explanation-box">
         <strong>Пояснення:</strong> <span id="explanation-text"></span>
     </div>
+
     <div class="question-section">
-        <h3 class="q-header"><span id="q-code" style="color: #7f8c8d; font-size: 0.9em;"></span> <span id="q-source" style="color: #7f8c8d; font-size: 0.9em;">Джерело...</span>
-        <span id="q-text">Завантаження запитань...</span>
+        <div style="color: #7f8c8d; font-size: 0.9em; margin-bottom: 5px; font-weight: 500;">
+            <span id="q-code"></span> &nbsp;&nbsp;|&nbsp;&nbsp; <span id="q-source">Джерело...</span>
+        </div>
+
+        <h3 class="q-header" style="margin-top: 0;">
+            <span id="q-text">Завантаження запитань...</span>
         </h3>
+
         <div id="options-container" class="options-list"></div>
     </div>
 
