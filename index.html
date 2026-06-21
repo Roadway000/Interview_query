@@ -110,6 +110,7 @@
             -->
             <div style="background: #e67e22; color: white; padding: 4px 8px; border-radius: 4px; font-variant-numeric: tabular-nums; display: flex; align-items: center;">
                 ⏱️ Час: &nbsp;<span id="timer-display">02:00:00</span>
+                <button id="timer-stop-btn" onclick="timerStop()" style="display: none;"></button>
             </div>
             <div style="display: flex; align-items: center; gap: 5px; background: transparent;">
                 <span style="margin-right: 5px; display: flex; align-items: center; font-size: 0.9em;">Рахунок: &nbsp;<span id="score">0</span></span>
@@ -221,8 +222,10 @@
     let timerInterval;
     const TOTAL_TIME = 2 * 60 * 60;
 
+    let savedTimerDisabled = parseInt(localStorage.getItem('test_timer_disabled'));
     let savedTime = parseInt(localStorage.getItem('test_time_left'));
     let timeLeft = (!isNaN(savedTime) && savedTime > 0) ? savedTime : TOTAL_TIME;
+    timerDisabled = (!isNaN(savedTimerDisabled)) ? savedTimerDisabled : 0;
 
     let savedIndex = parseInt(localStorage.getItem('test_current_index'));
     currentIndex = (!isNaN(savedIndex) && savedIndex >= 0) ? savedIndex : 0;
@@ -400,13 +403,24 @@
     }
 
     function startTimer() {
+        // Залізобетонний захист: перед створенням нового інтервалу завжди очищаємо старий,
+        // щоб інтервали ніколи не накладалися один на одного!
+        clearInterval(timerInterval);
+
         updateTimerDisplay();
+
+        // Якщо таймер було поставлено на паузу, не запускаємо циклічний відлік
+        if (timerDisabled === 1) {
+            return;
+        }
+
         timerInterval = setInterval(() => {
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
                 alert("Час вичерпано! Тест завершено.");
                 return;
             }
+
             timeLeft--;
             localStorage.setItem('test_time_left', timeLeft);
             updateTimerDisplay();
@@ -418,7 +432,17 @@
         const minutes = Math.floor((timeLeft % 3600) / 60);
         const seconds = timeLeft % 60;
         const pad = (num) => String(num).padStart(2, '0');
-        document.getElementById('timer-display').innerText = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+
+        const timerBox = document.getElementById('timer-display').parentElement;
+
+        // Візуальна фішка: якщо таймер на паузі — робимо плашку сірою, якщо йде — помаранчевою
+        if (timerDisabled === 1) {
+            document.getElementById('timer-display').innerText = `${pad(hours)}:${pad(minutes)}:${pad(seconds)} (ПАУЗА)`;
+            if (timerBox) timerBox.style.background = '#7f8c8d'; // Сірий колір на паузі
+        } else {
+            document.getElementById('timer-display').innerText = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+            if (timerBox) timerBox.style.background = '#e67e22'; // Помаранчевий дефолтний колір
+        }
     }
 
     function checkAnswer(selectedOptionId, questionObj) {
@@ -474,6 +498,22 @@
 
         localStorage.setItem('test_current_index', currentIndex);
         renderQuestion();
+    }
+
+    function timerStop() {
+        // Перемикаємо прапорець між 0 та 1
+        if (timerDisabled === 1) {
+            timerDisabled = 0;
+            localStorage.setItem('test_timer_disabled', 0);
+            startTimer(); // Перезапускаємо відлік
+            console.log("Таймер відновлено.");
+        } else {
+            timerDisabled = 1;
+            localStorage.setItem('test_timer_disabled', 1);
+            clearInterval(timerInterval); // Повністю зупиняємо виконання інтервалу
+            updateTimerDisplay(); // Оновлюємо текст додаючи (ПАУЗА)
+            console.log("Таймер зупинено.");
+        }
     }
 
     function applyFilters(field, value) {
@@ -677,6 +717,15 @@
 
     document.addEventListener('keydown', function(event) {
         if (document.getElementById('admin-modal').style.display === 'flex') return;
+        // ВІДСТЕЖЕННЯ Ctrl + Shift + Y
+        // event.code === 'KeyY' перевіряє саме фізичну клавішу T (працює на будь-якій розкладці)
+        if (event.ctrlKey && event.shiftKey && event.code === 'KeyY') {
+            // Скасовує стандартну поведінку браузера (якщо вона є)
+            event.preventDefault();
+            // Імітуємо клік по прихованій кнопці timer-stop-btn
+            document.getElementById('timer-stop-btn').click();
+            return; // Виходимо, щоб подія не йшла далі
+        }
         if (event.key === 'ArrowLeft') {
             if (!document.getElementById('prev-btn').disabled) changeQuestion(-1);
         } else if (event.key === 'ArrowRight') {
